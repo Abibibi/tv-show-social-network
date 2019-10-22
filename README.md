@@ -6,10 +6,6 @@ Après avoir cloné le repo :
 
 - Faire un yarn à la racine pour utiliser ESLint (configuré que pour le dossier front-end)
 
-- Pour travailler sur le dossier frontend et y faire des commits -> se positionner dans la branche frontend : git checkout frontend
-
-- Pour travailler sur le dossier backend et y faire des commits -> se positionner dans la branche frontend : git checkout backend
-
 - Pour récupérer les dépendances côté front
   -> se positionner dans le dossier front-end : cd /front-end
   -> taper yarn
