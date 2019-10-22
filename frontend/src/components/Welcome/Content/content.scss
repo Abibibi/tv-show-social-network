@@ -1,0 +1,80 @@
+@import 'src/styles/vars';
+
+.slider {
+
+  position: relative;
+  margin: 5rem auto 3rem;
+  width: 80%;
+
+  &-text {
+
+    color: white;
+    text-align: center;
+    width: 100%;
+    
+    position: absolute;
+    bottom: 0;
+    background-color: $colorBlack;
+    
+    font-weight: bold; 
+    z-index: 1;
+    padding: 1rem 0;
+    font-size: 1rem;
+  }
+}
+
+// css qui gére le carousel
+.aws-sld {
+
+  --slider-height-percentage: 60%;
+  --slider-transition-duration: 500ms;  
+  --organic-arrow-thickness: 0;
+  --organic-arrow-border-radius: 0;
+  --organic-arrow-height: 0;
+  --organic-arrow-color: #56a491;
+  --control-button-width: 20%;
+  --control-button-height: 50%;
+  --control-button-background: transparent;
+  --control-bullet-color: #f96d00;
+  --control-bullet-active-color: #b14d00;
+  --loader-bar-color: #f96d00;
+  --loader-bar-height: 6px;
+  --transition-bezier: cubic-bezier(0.5, 0.075, 0.25, 0.95);
+  --cube-animation-duration: 500ms;
+  --cube-animation-perspective: 2000px;
+  --cube-animation-ease-in: cubic-bezier(0.8, 0, 1, 0.8);
+  --cube-animation-ease-out: cubic-bezier(0, 0.2, 0.2, 1);
+  --cube-translateZ-distance: -225px;
+
+  &__bullets button {
+    
+    width: 15px;
+    height: 15px;
+    margin: 0 5px;
+  }
+}
+
+// responsive desktop
+@media screen and (min-width: 960px) {
+
+  .slider {
+
+    margin: 8rem auto 3rem;
+    width: 60%;
+
+    &-text {
+      padding: 1.5rem 0;
+      font-size: 1.2rem;
+    }
+  }
+
+  .aws-sld { 
+
+    &__bullets button {
+      width: 20px;
+      height: 20px;
+      margin: 0 6px;
+    }
+  }
+}
+

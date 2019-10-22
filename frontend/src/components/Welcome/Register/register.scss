@@ -1,0 +1,121 @@
+@import 'src/styles/vars';
+
+.form {
+
+  text-align: center;
+
+  &-label {
+    display: block;
+    width: 100%;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+
+    &-input {
+      display: block;
+      margin: auto;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 0.5rem;
+      font-size: 1.2rem;
+      width: 260px;
+      margin-top: 0.5rem;
+
+      &:focus {
+        box-shadow: 0px 0px 5px 0px $colorOrange;
+        transition-duration: 0.3s;
+      }
+    }
+  }
+
+  &-button {
+    width: 260px;
+    display: block;
+    color:white;
+    background-color: $colorOrange;
+    font-size: 1.5em;
+    font-weight: bold;
+    border:none;
+    border-radius: 6px;
+    padding: 0.3em 1em;
+    font-family: 'Lato', sans-serif;
+    margin: 3.5rem auto 0;
+  } 
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0rem 3rem 2rem;
+
+  &::before {
+    height: 150px;
+    display: block;
+    content: '';
+  }
+}
+
+.toconnect {
+  display: block;
+  text-align: center;
+  text-decoration: underline;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+
+  &:hover{
+    opacity: 0.7;
+  }
+}
+
+// responsive desktop
+@media screen and (min-width: 960px) {
+
+  .title {
+  
+    &::before {
+      height: 220px;
+    }
+  }
+}
+
+// animation button
+.hvr-sweep-to-left-register-login {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.hvr-sweep-to-left-register-login:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $colorBlack;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  border-radius: 8px;
+}
+.hvr-sweep-to-left-register-login:hover, .hvr-sweep-to-left-register-login:focus, .hvr-sweep-to-left-register-login:active {
+  border-radius: 8px;
+  color: $colorOrange;
+}
+.hvr-sweep-to-left-register-login:hover:before, .hvr-sweep-to-left-register-login:focus:before, .hvr-sweep-to-left-register-login:active:before {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}

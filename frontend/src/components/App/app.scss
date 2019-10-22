@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'LogoFont';
+  src: url(../../styles/fonts/StrangerbackintheNight.ttf);
+}
+
+@import 'src/styles/vars';
+
+
+#app {
+  font-family: 'Lato', sans-serif;
+  width: 100%;
+}
+
+body {
+  background-color: $colorLightGrey;
+}
