@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { DO_SIGNUP, DO_SIGNIN, DO_SIGNOUT, signInSuccess } from 'src/store/reducer/user';
+import { DO_SIGNUP, DO_SIGNIN, DO_SIGNOUT } from 'src/store/reducer/user';
 
 const userAuthMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -38,10 +38,6 @@ const userAuthMiddleware = (store) => (next) => (action) => {
       axios.post('http://localhost:5000/users/login', state.user)
         .then((response) => {
           console.log("l'utilisateur s'est bien connecté", response);
-          
-          const signInAction = signInSuccess();
-          store.dispatch(signInAction);
-
         })
         .catch((error) => {
           console.log('error', error);

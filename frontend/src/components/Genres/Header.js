@@ -6,7 +6,9 @@ import './genres.scss';
 
 // == Composant
 const Header = () => (
-  <div>Header Genres</div>
+  <div className="header-genres">
+    <h1 className="header-genres-title">C'est quoi ton genre ? </h1>
+  </div>
 );
 
 // == Export

@@ -15,7 +15,6 @@ const CHANGE_VALUE = 'CHANGE_VALUE';
 export const DO_SIGNUP = 'DO_SIGNUP';
 export const DO_SIGNIN = 'DO_SIGNIN';
 export const DO_SIGNOUT = 'DO_SIGNOUT';
-const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 
 // - Reducer
 const reducer = (state = initialState, action = {}) => {
@@ -42,17 +41,13 @@ const reducer = (state = initialState, action = {}) => {
         handle: '',
         signInEmail: '',
         signInPassword: '',
+        logged: true,
       };
     case DO_SIGNOUT:
       return {
         ...state,
         logged: false,
       };
-    case SIGNIN_SUCCESS:
-      return {
-        ...state,
-        logged:true,
-      }
     default:
       return state;
   }
@@ -75,10 +70,6 @@ export const doSignIn = () => ({
 
 export const doSignOut = () => ({
   type: DO_SIGNOUT,
-});
-
-export const signInSuccess = () => ({
-  type: SIGNIN_SUCCESS,
 });
 
 // - Selectors

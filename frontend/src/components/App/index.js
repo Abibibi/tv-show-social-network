@@ -14,34 +14,32 @@ import Friends from 'src/components/Friends';
 import Profile from 'src/components/Profile';
 import Home from 'src/containers/Home';
 
-
-
 // == Composant
 const App = ({ logged }) => (
   <div id="app">
-    {/*Affichage de la navbar si connecté*/}
+    {/* Affichage de la navbar si connecté */}
     {logged && <Nav />}
     <Switch>
-      {/*Affichage du composant welcome si pas connécté*/}
+      {/* Affichage du composant welcome si pas connécté */}
       <Route path="/" exact>
         {!logged && <Welcome />}
-        {/*Affichage de la home après connexion*/}
+        {/* Affichage de la home après connexion */}
         {logged && <Home />}
       </Route>
-      {/*Affichage des genres au clic sur séries*/}
+      {/* Affichage des genres au clic sur séries */}
       <Route path="/genres" exact>
         <Genres />
       </Route>
-      {/*Affichage des la page amis au clic sur amis*/}
+      {/* Affichage des la page amis au clic sur amis */}
       <Route path="/friends" exact>
         <Friends />
       </Route>
-      {/*Affichage des profil au clic sur profil*/}
+      {/* Affichage des profil au clic sur profil */}
       <Route path="/profile" exact>
         <Profile />
       </Route>
     </Switch>
-    {/*Affichage du footer dans tous les cas */}
+    {/* Affichage du footer dans tous les cas */}
     <Footer />
   </div>
 );

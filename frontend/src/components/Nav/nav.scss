@@ -7,7 +7,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+  z-index: 1;
 
   &-logo{
     font-family: 'LogoFont';
@@ -21,10 +21,14 @@
     }
   }
   
+  &-links {
+    padding-top: 0.8rem;
+  }
+
   &-link {
     color:white;
-    padding: 1.5rem 0 0.2rem;
-    font-size: 1.2rem;
+    padding: 2rem 0 0.2rem;
+    font-size: 1.2em;
     margin: 0 1.6rem;
 
     &:hover {
@@ -34,7 +38,7 @@
   } 
   
   &-moving {
-    transition: 0.5s;
+    transition: 0.7s;
     padding: 0px 50px;
     position: fixed;
   }
@@ -47,7 +51,6 @@
 // lien navbar active
 .selected {
   color: $colorOrange;
-  border-bottom: 1px solid $colorOrange;
 }
 
 // css search bar
@@ -127,13 +130,13 @@
   }
   .selected {
     color: $colorOrange;
-    border-bottom: 1px solid $colorOrange;
+    border: none;
   }
 
   .search {
 
     &__input {
-      font-size: 1em;
+      font-size: 0.9em;
     }
   }
 }

@@ -35,6 +35,7 @@ const Login = ({
             type="email"
             value={email}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </label>
@@ -47,6 +48,7 @@ const Login = ({
             type="password"
             value={password}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </label>
