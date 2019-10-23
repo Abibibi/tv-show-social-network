@@ -11,7 +11,7 @@ Après avoir cloné le repo :
   -> taper yarn
 
 - Pour lancer le serveur côté front
-  -> dans le dossier frontend, taper yarn init
+  -> dans le dossier frontend, taper yarn start
 
 - Pour récupérer les dépendances côté back
   -> se positionner dans le dossier back-end : cd /front-end
