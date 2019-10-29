@@ -1,0 +1,51 @@
+@import 'src/styles/vars';
+
+.chat {
+  position: fixed;
+  border-radius: 10px;
+  bottom: 50px;
+  right: 50px;
+  width: 350px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  
+  &-title {
+    border-radius: 10px 10px 0 0;
+    background-color: $colorOrange;
+    padding: 2rem;
+    color: white;
+    font-size: 1.5em;
+  }
+  
+  &-body {
+    background-color: white;
+    height: 350px;
+  }
+  
+  &-footer {
+    background-color: $colorLightGrey;
+    padding: 1rem;
+    border-radius: 0 0 10px 10px;
+
+    &-form {
+      display: flex;
+      justify-content: space-between;
+      
+      &-input {
+        border: none;
+        font-size: 1.2em;
+        padding: 0;
+        background-color: $colorLightGrey;
+      }
+
+      &-submit {
+        display: block;
+        color:white;
+        font-size: 1em;
+        border:none;
+        color: $colorDarkGrey;
+        background-color: $colorLightGrey;
+      }
+    }
+  }
+}
+

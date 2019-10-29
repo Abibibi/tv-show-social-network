@@ -1,10 +1,5 @@
 {
-  "name": "serialkiller",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:O-clock-Universe/projet-SerialKiller.git",
-  "author": "Abibibi <abeba.ngwe@gmail.com>",
-  "license": "MIT",
+  "name": "react-modele",
   "devDependencies": {
     "@babel/core": "*",
     "@babel/plugin-proposal-class-properties": "*",
@@ -42,7 +37,7 @@
     "webpack": "*",
     "webpack-cli": "*",
     "webpack-dev-server": "*"
-},
+  },
   "scripts": {
     "test": "mocha --require tests/.setup.js tests/**/*.test.js",
     "test:watch": "mocha --watch --require tests/.setup.js tests/**/*.test.js",
@@ -54,5 +49,25 @@
     "build:prod": "NODE_ENV=production webpack --mode production",
     "build:prod:win": "set NODE_ENV=production && webpack --mode production",
     "save-deps": "node updateDeps.js"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
+    "axios": "^0.19.0",
+    "classnames": "^2.2.6",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-awesome-slider": "^2.1.0",
+    "react-chat-widget": "^2.1.5",
+    "react-dom": "^16.8.6",
+    "react-icons": "^3.8.0",
+    "react-page-progress": "^1.1.1",
+    "react-player": "^1.13.0",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.1.2",
+    "react-transition-group": "^4.3.0",
+    "redux": "^4.0.1",
+    "socket.io": "^2.3.0"
   }
 }

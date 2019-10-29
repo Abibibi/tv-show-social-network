@@ -1,0 +1,50 @@
+@import 'src/styles/vars';
+
+.profil {
+
+  &-infos {
+      
+    text-align:center;
+    background-color: white;
+    padding: 2rem;
+    
+    &-title {
+        font-size: 1.5rem;
+        padding-bottom:1.5rem;
+        font-weight: bold;
+    }
+    &-prenom, &-nom, &-age, &-mail {
+        
+        padding: 1rem;
+        font-size: 1.2rem;
+        color: $colorOrange;
+    }
+  }
+  &-skills {
+      padding: 2rem;
+      text-align: center;
+      
+      &-addict {
+        font-size: 1.5rem;
+        padding: 1rem;
+        font-weight:bold;
+      }
+      &-avis {
+        font-size: 1.5rem;
+        padding: 1rem;
+        font-weight: bold;
+      }
+    
+    }
+    &-friends {
+        text-align: center;
+        margin: 2rem;
+        
+        &-title {
+            font-size: 1.5rem;
+            padding: 1rem;
+            font-weight: bold;
+
+        }
+    }
+ }

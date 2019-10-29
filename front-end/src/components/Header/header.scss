@@ -1,0 +1,39 @@
+@import 'src/styles/vars';
+
+.header { 
+  background-color: $colorDarkGrey;
+  height: 400px;
+
+  &-title {
+      color:white;
+      font-size: 3em;
+      text-align: center;
+      padding-top: 15rem;  
+      position: relative;
+      
+      &-animation {
+        animation:animateleftside 0.8s;
+      }
+  } 
+}
+
+@keyframes animateleftside{
+  from{
+    left:-1000px;
+    opacity:0
+  } to{
+    left:0;
+    opacity:1
+  }
+}
+
+@media screen and (max-width: 960px){
+  .header {
+    height: 250px;
+
+    &-title {
+      font-size: 1.8em;
+      padding-top: 8rem;
+    }                
+  }
+}

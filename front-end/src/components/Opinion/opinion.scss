@@ -1,0 +1,105 @@
+@import 'src/styles/vars';
+
+
+.avis {
+  padding: 1rem;
+  margin-top: 4rem;
+
+  &-title {
+    padding-bottom: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  &-com {
+    line-height:1.2rem;
+    margin-top: 2rem;
+
+      &-util {
+        padding: 1.5rem 0 0.5rem;
+        color: $colorOrange;
+        font-weight: bold;    
+      }
+
+      &-date {
+        padding-bottom: 0.5rem;
+        font-weight: bold;               
+      }                  
+  }
+
+  &-form{
+    display: flex;
+
+    &-textarea{
+      display: block;
+      margin: auto;
+      border: none;
+      border-radius: 6px 0  0 6px;
+      padding: 0.5rem 0.5rem;
+      font-size: 1.2rem;
+      width: 95%;
+      outline: none;
+
+      &:focus {
+        box-shadow: 0px 0px 5px 0px $colorOrange;
+        transition-duration: 0.3s;
+      }
+    }
+
+    &-button {
+      margin: 0 auto;
+      width: 100px;
+      padding: 1rem;
+      display: block;
+      color:white;
+      background-color: $colorOrange;
+      font-size: 1em;
+      font-weight: bold;
+      border:none;
+      border-radius: 0 6px 6px 0;
+      font-family: 'Lato', sans-serif;
+    }
+  }  
+}
+
+@media screen and (min-width: 960px){ 
+  
+  .avis {
+
+    &-title {
+      font-size: 2rem;
+    }
+    &-com {
+      padding: 0 5rem;
+
+      &-util {
+        padding: 1.5rem 0 1rem; 
+        font-size: 1.2rem;      
+      }
+      
+      &-date {
+        padding-bottom: 1rem;
+        font-size: 1rem;             
+      }
+      
+      &-para {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+    }
+    &-form{
+      padding: 2rem 5rem 2rem 5rem;
+
+      &-textarea{
+        padding: 1.5rem 1.5rem;
+        font-size: 1.5rem;
+      }
+
+      &-button {
+        padding: 2rem;
+        display: block;
+      }
+    }                  
+  }
+}

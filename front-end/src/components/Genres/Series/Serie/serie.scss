@@ -1,0 +1,83 @@
+@import 'src/styles/vars';
+
+
+.serie {
+
+  &-top {
+
+    &-infos {
+      margin-bottom: 3rem;
+
+      &-titre, &-genre, &-sortie, &-realise, &-acteurs {
+        margin: 1rem;
+        font-size: 1em;
+      }
+    }
+  }
+
+  &-resume {
+    background-color: white;
+    padding: 1rem;
+
+    &-title {
+      padding-bottom: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      color: $colorOrange;
+    }
+
+    &-para {
+      text-align: center;
+      line-height: 1.5rem;
+    }
+  }
+}
+
+
+@media screen and (min-width: 960px){ 
+  .serie {
+
+    &-top{
+      display: flex;
+      justify-content: center;
+      margin: 5rem;
+
+      &-trailer{
+        width: 40% !important;
+      }
+
+      &-infos {
+        margin: 5rem 4rem 5rem;
+
+        &-titre, &-genre, &-sortie, &-realise, &-acteurs {
+          font-size: 1.5rem;
+          padding-bottom: 1rem;
+        }  
+      } 
+    }
+
+    &-resume {
+      padding: 5rem 1rem;
+      
+      &-title {
+        padding-bottom: 3rem;
+        font-size: 2rem;
+      }
+      &-para {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1300px) {
+  .serie {
+    &-top{
+      &-trailer{
+        width: 70% !important;
+      }
+    }
+  }
+} 

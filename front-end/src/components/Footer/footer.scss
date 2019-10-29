@@ -1,0 +1,14 @@
+@import 'src/styles/vars';
+
+.footer {
+  width: 100%;
+  background-color: $colorBlack;
+  margin-top: 8rem;
+  text-align:center;
+  padding: 6rem 0;
+  font-size: 1rem;
+  
+  &-copyright {
+    color: white;   
+  }
+}

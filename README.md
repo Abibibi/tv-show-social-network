@@ -18,4 +18,4 @@ Après avoir cloné le repo :
   -> taper yarn
 
 - Pour lancer le serveur côté back
-  -> dans le dossier backend, taper node server.js
+  -> dans le dossier backend, taper yarn dev
