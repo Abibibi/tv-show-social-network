@@ -1,0 +1,41 @@
+@import 'src/styles/vars';
+
+.RSPBprogressBar .RSPBprogression {
+  transition: width 1.9s ease;
+}
+
+.RSPBprogressBar {
+  margin: auto;
+  height: 25px
+}
+
+.button {
+    width: 90px;
+    height: 50px;
+    display: block;
+    color:white;
+    background-color: $colorOrange;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    border:none;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    margin: 1.5rem auto 0;
+
+    &:hover {
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+      transform: scale(0.95,0.95);  
+      transition: 0.5s;       
+  }
+}
+
+.button:active {
+    background-color: $colorDarkGrey;
+}
+
+@media screen and (min-width: 760px) {
+  .RSPBprogressBar {
+    width: 400px;  
+  }
+}

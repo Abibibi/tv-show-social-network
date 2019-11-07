@@ -6,6 +6,7 @@ import {
   Switch,
   useLocation,
   withRouter,
+  Redirect,
 } from 'react-router-dom';
 
 // https://reacttraining.com/react-router/web/example/animated-transitions
@@ -16,80 +17,95 @@ import './app.scss';
 
 import Welcome from 'src/components/Welcome';
 import Genres from 'src/containers/Genres';
-import Footer from 'src/components/Footer';
-import Friends from 'src/components/Friends';
-import Profile from 'src/components/Profile';
+import Footer from 'src/containers/Footer';
+import Friends from 'src/containers/Friends';
+import Profile from 'src/containers/Profile';
+import FriendProfile from 'src/containers/FriendProfile';
 import Home from 'src/containers/Home';
 import Series from 'src/containers/Series';
 import Header from 'src/components/Header';
 import Serie from 'src/containers/Series/Serie';
 import ChatApp from 'src/containers/ChatApp';
+import SearchShows from 'src/containers/SearchShows';
 
-// Données concernant les titres des headers (provisoires)
-const titles = {
-  avis: 'Ne rate pas les derniers avis postés',
-  genre: 'C\'est quoi ton genre ?',
-  series: 'Trouve ta série',
-  serie: 'Nom de la série',
-  amis: 'Trouve d\'autres SerialKillers',
-  profil: 'Coralie Lingoli',
-};
 
 // == Composant
-const App = ({ logged }) => {
-  const [headerTitle, setHeaderTitle] = useState('');
+const App = ({
+  logged,
+  searchDone,
+  catchGenres,
+  genres,
+  catchSeriesAndRelatedGenres,
+  seriesAndRelatedGenres,
+  catchFriendSlugs,
+  friendSlugs,
+  ownUserSlug,
+}) => {
+  const changeTitle = () => {
+    // le switch permet de gérer au cas par cas un titre en fonction de window.location.pathname.
+    // piste d'améliration :
+    // faire une fonction getTitleByPathname, c'est fonction prendrait en paramètre d'entrée
+    // le pathname et retournerai une chaine de caractère à mettre en titre
+
+    genres.map(({ slug, name }) => {
+      if (window.location.pathname === `/${slug}`) {
+        document.title = `Serial Killer - Séries ${name}`;
+      }
+    });
+        
+    seriesAndRelatedGenres.map(({
+      slug: serieSlug,
+      title: serieTitle,
+      genre: {
+        slug: genreSlug,
+      },
+    }) => {
+      if (window.location.pathname === `/${genreSlug}/${serieSlug}`) {
+        document.title = `Serial Killer - ${serieTitle}`;
+      }
+    });
+    
+    friendSlugs.map(({ slug, handle }) => {
+      if (window.location.pathname === `/profil/${slug}`) {
+        document.title = `Serial Killer - Profil de ${handle}`;
+      }
+    });
+
+    if (window.location.pathname === '/') {
+      document.title = 'Serial Killer - Bienvenue';
+    }
+    else if (window.location.pathname === '/home') {
+      document.title = 'Serial Killer - Accueil';
+    }
+    else if (window.location.pathname === '/genres') {
+      document.title = 'Serial Killer - Tous les genres';
+    }
+    else if (window.location.pathname === '/communaute') {
+      document.title = 'Serial Killer - Communauté';
+    }
+    else if (window.location.pathname === `/profil/${ownUserSlug}`) {
+      document.title = 'Serial Killer - Mon profil';
+    }
+    else if (window.location.pathname === '/recherche-series') {
+      document.title = 'Serial Killer - Recherche d\'une série';
+    }
+  };
+
   useEffect(() => {
     // j'initialise le titre tout de suite
-    const changeTitle = () => {
-      // le switch permet de gérer au cas par cas un titre en fonction de window.location.pathname.
-      // piste d'améliration :
-      // faire une fonction getTitleByPathname, c'est fonction prendrait en paramètre d'entrée
-      // le pathname et retournerai une chaine de caractère à mettre en titre
-      switch (window.location.pathname) {
-        case '/':
-          document.title = 'Serial Killer - Accueil';
-          setHeaderTitle(titles.avis);
-          break;
-        case '/genres':
-          document.title = 'Serial Killer - Tous les genres';
-          setHeaderTitle(titles.genre);
-          break;
-        case '/friends':
-          document.title = 'Serial Killer - Amis';
-          setHeaderTitle(titles.amis);
-          break;
-        case '/profile':
-          document.title = 'Serial Killer - Mon profil';
-          setHeaderTitle(titles.profil);
-          break;
-        case '/genres/series':
-          document.title = 'Serial Killer - Séries par genre';
-          setHeaderTitle(titles.series);
-          break;
-        case '/genres/series/serie':
-          document.title = 'Serial Killer - Série';
-          setHeaderTitle(titles.serie);
-          break;
-        default:
-          document.title = '404';
-          setHeaderTitle('');
-      }
-    };
     changeTitle();
-    // le hoc a enrichi le composant
-    // le hoc withRouter (voir en bas du fichier) nous met à
-    // disposition des props liées à l'historique et l'url
-    // on récupère ici une prop history, c'est un objet possédant une méthode listen
-    // listen est un moyen d'écouter tous les changements d'url,
-    // on transmet une fonction de rappel, un callback pour réagir
-    // à chaque changement d'url on va changer le titre du document
-  /*   history.listen(changeTitle); */
   });
+
+  useEffect(() => {
+    catchGenres();
+    catchSeriesAndRelatedGenres();
+    catchFriendSlugs();
+  }, []);
 
   const location = useLocation();
   return (
     <div id="app">
-      {logged && <Header title={headerTitle} />}
+      {logged && <Header />}
       <TransitionGroup>
         <CSSTransition
           key={location.key}
@@ -97,28 +113,52 @@ const App = ({ logged }) => {
           timeout={450}
         >
           <Switch location={location}>
-            {/* Affichage du composant welcome si pas connécté ou home si connécté */}
+            {logged && <Redirect exact from="/" to="/home" />}
+            {location.pathname !== '/search' && searchDone && <Redirect to="/search" />}
+            {/* Affichage du composant welcome si pas connécté ou home si connecté */}
             <Route path="/" exact>
-              {(!logged && <Welcome />) || (logged && <Home />)}
+              {!logged && <Welcome />}
+            </Route>
+            <Route path="/home" exact>
+              {logged && <Home />}
             </Route>
             {/* Affichage des genres au clic sur séries */}
             <Route path="/genres" exact>
               {logged && <Genres />}
             </Route>
-            {/* Affichage des la page amis au clic sur amis */}
-            <Route path="/friends" exact>
+            {/* Affichage des la page communauté au clic sur communauté */}
+            <Route path="/communaute" exact>
               {logged && <Friends />}
             </Route>
-            {/* Affichage des profil au clic sur profil */}
-            <Route path="/profile" exact>
+            {friendSlugs.map(({ id, slug }) => (
+              <Route key={id} path={`/profil/${slug}`} exact>
+                {logged && <FriendProfile />}
+              </Route>
+            ))}
+            {/* Affichage du profil utilisateur connecté en session au clic sur profil */}
+            <Route path={`/profil/${ownUserSlug}`} exact>
               {logged && <Profile />}
             </Route>
+            {/* Affichage des autres profils utilisateur au clic sur profil */}
             {/* Affichage des séries selon un genre */ }
-            <Route path="/genres/:name" exact>
-              {logged && <Series />}
-            </Route>
-            <Route path="/genres/series/:serie" exact>
-              {logged && <Serie />}
+            {genres.map(({ id, slug }) => (
+              <Route key={id} path={`/${slug}`} exact>
+                {logged && <Series />}
+              </Route>
+            ))}
+            {seriesAndRelatedGenres.map(({
+              id,
+              slug: serieSlug,
+              genre: {
+                slug: genreSlug,
+              },
+            }) => (
+              <Route key={id} path={`/${genreSlug}/${serieSlug}`} exact>
+                {logged && <Serie />}
+              </Route>
+            ))}
+            <Route path="/search" exact>
+              {logged && <SearchShows />}
             </Route>
           </Switch>
         </CSSTransition>
@@ -132,6 +172,32 @@ const App = ({ logged }) => {
 
 App.propTypes = {
   logged: PropTypes.bool.isRequired,
+  searchDone: PropTypes.bool.isRequired,
+  catchGenres: PropTypes.func.isRequired,
+  genres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      slug: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+  catchSeriesAndRelatedGenres: PropTypes.func.isRequired,
+  seriesAndRelatedGenres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      slug: PropTypes.string.isRequired,
+      genre: PropTypes.shape({
+        slug: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  ).isRequired,
+  catchFriendSlugs: PropTypes.func.isRequired,
+  friendSlugs: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      slug: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+  ownUserSlug: PropTypes.string.isRequired,
 };
 
 

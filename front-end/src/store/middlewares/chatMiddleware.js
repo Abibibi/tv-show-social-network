@@ -14,14 +14,13 @@ const chatMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case ADD_MESSAGE: {
       console.log('Je veux envoyer un message dans la BDD');
-
       const state = store.getState();
 
       const userId = state.user.sessionUserId;
 
       const content = state.chat.chatMessage;
 
-      const handle = state.user.loggedUserHandle;
+      const handle = state.user.sessionUserHandle;
       
       console.log(content);
 
@@ -72,7 +71,6 @@ const chatMiddleware = (store) => (next) => (action) => {
       break;
     }
     default:
-      console.log('cette action ne m\'intéresse pas je la laisse passer');
       next(action);
   }
 };

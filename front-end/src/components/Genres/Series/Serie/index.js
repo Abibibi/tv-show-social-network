@@ -1,11 +1,10 @@
 // == Import : npm
 import React, { useEffect } from 'react';
-import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 
 // == Import : local
 import './serie.scss';
-import Opinion from 'src/components/Opinion';
+import Opinion from 'src/containers/Opinion';
 
 
 // == Composant
@@ -15,7 +14,6 @@ const Serie = ({
     trailer,
     year,
     summary,
-    picture,
   },
   directors,
   actors,
@@ -30,7 +28,7 @@ const Serie = ({
     <>
       <div className="serie">
         <div className="serie-top">
-          <ReactPlayer className="serie-top-trailer" url={trailer} playing={false} controls width="100%" />
+          <iframe className="serie-top-trailer" title="Titre" width="560" height="315" src={trailer} frameBorder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
           <div className="serie-top-infos">
             <p className="serie-top-infos-titre">{title}</p>
             <p className="serie-top-infos-genre">{genre}</p>
@@ -56,14 +54,10 @@ Serie.propTypes = {
     year: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
-    
-    // actors: PropTypes.array.isRequired,
-    // genre: PropTypes.shape({
-    //   name: PropTypes.string.isRequired,
-    // }).isRequired,
   }).isRequired,
   directors: PropTypes.arrayOf(PropTypes.string).isRequired,
   actors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  genre: PropTypes.string.isRequired,
   catchSerieDetails: PropTypes.func.isRequired,
 };
 

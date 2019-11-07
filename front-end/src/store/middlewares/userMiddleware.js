@@ -2,12 +2,17 @@ import axios from 'axios';
 
 import {
   DO_SIGNUP,
+  signUpSuccess,
+  signUpFail,
   DO_SIGNIN,
   DO_SIGNOUT,
   signInSuccess,
+  signInFail,
+  GET_OWN_PROFILE,
+  receiveOwnProfile,
 } from 'src/store/reducer/user';
 
-const userAuthMiddleware = (store) => (next) => (action) => {
+const userMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case DO_SIGNUP: {
       console.log("je veux inscrire l'utilisateur dans la BDD");
@@ -26,9 +31,13 @@ const userAuthMiddleware = (store) => (next) => (action) => {
       axios.post('http://localhost:5000/users/add', state.user)
         .then((response) => {
           console.log(response);
+
+          store.dispatch(signUpSuccess());
         })
         .catch((error) => {
           console.log('error', error);
+
+          store.dispatch(signUpFail());
         });
       // on laisse passer DO_SIGNUP dans le reducer
       // afin que le formulaire se vide une fois l'inscription effectuée
@@ -52,6 +61,8 @@ const userAuthMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.log('error', error);
+
+          store.dispatch(signInFail());
         });
 
       next(action);
@@ -75,10 +86,30 @@ const userAuthMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+    case GET_OWN_PROFILE: {
+      console.log('Je veux recevoir les infos de profil de la session courante');
+
+      const state = store.getState();
+
+      const userId = state.user.sessionUserId;
+
+      axios.get(`http://localhost:5000/users/${userId}`)
+        .then((response) => {
+          console.log('Je récupère bien les infos du profil', response.data);
+          
+          const profileInfos = response.data;
+          const displayProfile = receiveOwnProfile(profileInfos);
+          store.dispatch(displayProfile);
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+      next(action);
+      break;
+    }
     default:
-      console.log('cette action ne m\'intéresse pas je la laisse paser');
       next(action);
   }
 };
 
-export default userAuthMiddleware;
+export default userMiddleware;

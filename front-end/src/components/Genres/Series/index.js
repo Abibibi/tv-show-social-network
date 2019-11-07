@@ -7,29 +7,32 @@ import PropTypes from 'prop-types';
 import './series.scss';
 
 // == Composant
-const Series = ({ series, catchSeriesByGenre }) => {
+const Series = ({ series, catchSeriesByGenre, genreSlug }) => {
   useEffect(() => {
     catchSeriesByGenre();
   }, []);
 
 
   return (
-    <div className="series">
-      {series.map((serie) => {
-        const {
-          title,
-          picture,
-          id,
-          slug,
-        } = serie;
-        return (
-          <Link to={`/genres/series/${slug}`} className="series-card" key={id}>
-            <img className="series-card-image" src={picture} alt={title} />
-            <span className="series-card-title">{title}</span>
-          </Link>
-        );
-      })}
-    </div>
+    <>
+      <h1 className="titleseries">Choisis ta série</h1>
+      <div className="series">
+        {series.map((serie) => {
+          const {
+            title,
+            picture,
+            id,
+            slug,
+          } = serie;
+          return (
+            <Link to={`/${genreSlug}/${slug}`} className="series-card" key={id}>
+              <img className="series-card-image" src={picture} alt={title} />
+              <span className="series-card-title">{title}</span>
+            </Link>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

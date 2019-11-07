@@ -14,6 +14,8 @@ const Register = ({
   password,
   modifyValue,
   signUp,
+  registered,
+  registerFail,
 }) => {
   const handleChange = (event) => {
     // name représente la propriété name de chaque input
@@ -91,6 +93,9 @@ const Register = ({
             required
           />
         </label>
+        {console.log(registerFail)}
+        {(registerFail && !registered && <div className="form-signup-fail">Inscription invalide</div>)
+        || (registered && !registerFail && <div className="form-signup-success">Inscription effectuée</div>)}
         <button className="form-button hvr-sweep-to-left-register-login" type="submit">Je m'inscris</button>
       </form>
       <a href="#login" className="toconnect">Déjà inscrit(e) ? Connecte-toi</a>
@@ -106,8 +111,9 @@ Register.propTypes = {
   password: PropTypes.string,
   modifyValue: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired,
+  registered: PropTypes.bool.isRequired,
+  registerFail: PropTypes.bool.isRequired,
 };
-
 Register.defaultProps = {
   firstname: '',
   lastname: '',

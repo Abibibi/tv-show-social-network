@@ -8,7 +8,6 @@ const User = require('../models/User');
 router.route('/').get((req, res) => {
     Chatmessage.findAll()
       .then(messages => {
-        console.log(messages)
         Chatmessage.findAll({
             include: [{
                 model: User,
@@ -17,7 +16,6 @@ router.route('/').get((req, res) => {
             attributes: ['id', 'content', 'createdAt'],
         })
         .then(messages => {
-            console.log(messages)
             res.json(messages)
         })
         .catch(err => res.status(400).json(err + 'je n\'obtiens pas les users'))

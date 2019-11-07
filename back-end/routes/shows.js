@@ -1,20 +1,44 @@
 // express router is used
 const router = require('express').Router();
+const Fuse = require('fuse.js');
 const Show = require('../models/Show');
 const Director = require('../models/Director');
 const ShowDirectors = require('../models/ShowDirectors');
 const Actor = require('../models/Actor');
 const ShowActors = require('../models/ShowActors');
 const Genre = require('../models/Genre');
-
+const Review = require('../models/Review');
+const User = require('../models/User');
 
 // to get all shows
 router.route('/').get((req, res) => {
 
-  Show.findAll()
+  Show.findAll({
+    attributes: ['id', 'title'],
+    order: [
+      ['title', 'ASC']
+    ]
+  })
     .then(shows => res.json(shows))
     .catch(err => res.status(400).json(err));
 });
+
+
+// to get all shows and related genres
+router.route('/showsAndRelatedGenres').get((req, res) => {
+
+  Show.findAll({
+    attributes: ['id', 'slug', 'title'],
+    include: [
+      {
+        model: Genre,
+        attributes: ['id', 'slug']
+      }
+    ]
+  })
+  .then((showsAndRelatedGenres) => res.json(showsAndRelatedGenres))
+  .catch((err) => res.status(400).json(err))
+})
 
 
 // to add a show
@@ -53,7 +77,8 @@ router.route('/add').post((req, res) => {
 // to get one show details from its slug, including its directors, actors and genre name
 router.route('/:showSlug').get((req, res) => { 
   const slug = req.params.showSlug;
-// the object we want to send to the client via this endpoint. Throughout this route, we will progressively add in properties.
+// the object we want to send to the client via this endpoint.
+// Throughout this route, we will progressively add in properties, via the slug provided and includes.
   let responseShow = {};
 // to find the right show from the slug sent by the client
   Show.findOne({
@@ -83,51 +108,85 @@ router.route('/:showSlug').get((req, res) => {
     },
     {
       model: Genre,
-      attributes: ['name'],
-    }
+      attributes: ['name', 'slug'],
+    },
+    {
+      model: Review,
+      attributes: ['content', 'stars', 'id', 'createdAt'],
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'handle', 'slug']
+        }
+      ],
+    },
   ],
+  // to order one show reviews, most recent first
+  // order needs to be specified at model Show level,
+  // not model Review level
+  order: [[{ model: Review }, 'id', 'asc']],
   // we do not need createdAt or updatedAt attributes is our show object, so we exclude them:
     attributes: {
       exclude: [
         'createdAt',
-        'updatedAt'
+        'updatedAt',
+        'picture',
+        'genres_id'
+      ],
+      include: [
+        'slug',
       ]
     }
   })
   .then((show) => {
-    // we fetch all the information on the show available in shows table
+    // we fetch all the information on the show available in shows, directors, actors, genres & reviews tables
     responseShow = show;
-    show.getDirectors().then((directors) => {
-      // we add the directors as extra information on the show
-      responseShow.directors = directors;
-      // OR:
-      // responseShow.setDataValue('directors', directors);
-      // (show properties are available in the object dataValues (run console.log(responseShow) to see them))
-    })
 
-    show.getActors().then((actors) => {
-      // we add the actors as extra information on the show
-      responseShow.actors = actors;
-      // responseShow.setDataValue('actors', actors);
-    })
-  
-    Genre.findOne({
-      where: {
-        id: show.genres_id
-      },
-    })
-    .then((genre) => {
-      // we add the genre as extra information on the show
-      responseShow.genre = genre;
-     // responseShow.setDataValue('genre', genre.name);
-
-     // response to the client now include information on the show, directors, actors and genre name included
-     return res.json(responseShow);
-    })
+    // response to the client now include information on the show, directors, actors and genre name included
+    return res.json(responseShow);
     
   })
+  .catch((err) => {
+    // no show was found from the slug provided
+    res.status(400).json('La requête n\'a pas abouti');
+  })
   
-}) 
+})
+
+// to get all shows whose title matches with a searched word 
+router.route('/search').post((req, res) => {
+  const wordSearchRequest = req.body.wordSearch;
+  let showResults = [];
+  
+    Show.findAll({
+      attributes: ['id', 'title', 'picture', 'slug'],
+      include: [
+        {
+          model: Genre,
+          attributes: ['id', 'slug']
+        }
+      ]
+    })
+    .then(shows => {
+      
+        const options = {
+          caseSensitive: false,
+          threshold: 0.35,
+          location: 0,
+          distance: 100,
+          maxPatternLength: 32,
+          minMatchCharLength: 1,
+          keys: ['title']
+        }
+        const fuse = new Fuse(shows, options);
+        showResults = fuse.search(wordSearchRequest);
+
+      return res.json(showResults);
+    })
+    .catch(err => {
+        res.status(400).json('La requête n\'a pas abouti');
+    })
+  }); 
 
 // router exported to created the related API in index.js, which will be made available to the client 
 module.exports = router;

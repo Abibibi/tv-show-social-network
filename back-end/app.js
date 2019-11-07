@@ -9,12 +9,13 @@ const cors = require('cors');
 // to create and destroy sessions when user sign in and signs out
 const session = require('express-session');
 
-
 const Server = require('http').Server;
 
-// 
 const socket = require('socket.io');
 
+const Review = require('./models/Review');
+
+const Chatmessage = require('./models/Chatmessage');
 
 
 // DATABASE CONNECTION
@@ -39,7 +40,7 @@ const port = process.env.PORT || 5000;
 
 app.use(session({
   secret: 'serialkillerbestproject',
-  resave: true,
+  resave: false,
   saveUninitialized: false,
 }));
 app.use(cors());
@@ -73,14 +74,34 @@ app.use('/messages', messagesRouter);
 
 // SOCKET.IO
 
-let id = 0;
+let chatmessageIdToIncrement = 0;
+let reviewIdToIncrement = 0;
+
 io.on('connection', (socket) => {
   console.log('>> socket.io - connected');
+  
+  // to avoid duplicates between websocket and db chatmessage ids
+  Chatmessage.findAll()
+  .then((messages) => {
+    chatmessageIdToIncrement = Math.max(...messages.map(oneMessage => oneMessage.id)); 
+  });  
+
   socket.on('send_message', (message) => {
-    message.id = ++id;
+    message.id = ++chatmessageIdToIncrement;
     io.emit('send_message', message);
   });
-});
+
+  // to avoid duplicates between websocket and db review ids
+  Review.findAll()
+  .then((reviews) => {
+    reviewIdToIncrement = Math.max(...reviews.map(oneReview => oneReview.id));
+  });
+
+  socket.on('post_review', (review) => {
+    review.id = ++reviewIdToIncrement;
+    io.emit('post_review', review); 
+  });
+})
 
 
 

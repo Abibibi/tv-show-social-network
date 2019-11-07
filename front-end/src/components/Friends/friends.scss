@@ -1,0 +1,120 @@
+@import 'src/styles/vars';
+
+.friends {
+  margin: 7rem 1rem 2rem;
+  min-height: 600px;
+  
+  &-title {
+    margin-bottom: 3rem;
+    text-align: center;
+    margin-top: 5rem;
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+
+  &-form {
+    margin-bottom: 2rem;
+    &-input {
+      text-align: center;
+      width: 250px;
+      display: block;
+      margin: auto;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+
+      &:focus {
+        box-shadow: 0px 0px 5px 0px $colorOrange;
+        transition-duration: 0.3s;
+      }
+    }
+  }
+
+  &-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    &-card {
+      text-align: center;
+      width: 300px;
+      margin-bottom: 2rem;
+
+      &-avatar {
+        margin: 1.5rem auto 1rem;
+        height: 100px;
+        width: 100px;
+        background-color: black;
+        border-radius: 50%;
+
+        &:hover {
+          box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+          transform: scale(1.05,1.05);  
+          transition: 0.5s;
+        }
+
+        & img {
+          max-width:100%;
+          max-height:100%;
+          border-radius: 50%;
+        }
+      }
+
+      &-handle {
+        font-size: 1.2em;
+        margin-bottom: 1rem;
+        font-weight: bold;
+
+        &:hover {
+          color: $colorDarkGrey;
+        }
+      }
+
+      &-button {
+        width: 130px;
+        color:white;
+        font-size: 1.1em;
+        font-weight: bold;
+        border:none;
+        border-radius: 6px;
+        padding: 0.3em 0;
+        font-family: 'Lato', sans-serif;
+        margin: auto;
+        
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s;
+
+        &:hover, &:focus, &:active {
+          -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+          -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+          transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+        }
+
+        &-add {
+          background-color: $colorOrange;
+        }
+
+        &-remove {
+          background-color: $colorBlack;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .friends {
+    margin-top: 12rem;
+
+    &-title {
+      font-size: 2em;
+    }
+  }
+}

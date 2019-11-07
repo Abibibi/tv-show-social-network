@@ -10,7 +10,7 @@ router.route('/').get((req, res) => {
     .then(genres => res.json(genres))
     .catch(err => res.status(400).json(err));
   });
-
+  
 
 // to add a genre
 router.route('/add').post((req, res) => {
@@ -68,7 +68,7 @@ router.route('/:genreSlug').get((req, res) => {
           where: { genres_id: genreIdBySlug }
         }],
       // retrieves these specific attributes for the Genre
-      attributes: ['id', 'name', 'image'],
+      attributes: ['id', 'name', 'image', 'slug'],
       })
       // retrieves all the shows belonging to this genre
       .then(genre => res.json(genre))

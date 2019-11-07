@@ -1,5 +1,22 @@
 @import 'src/styles/vars';
 
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.alert-exit {
+  opacity: 1;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
 
 .avis {
   padding: 1rem;
@@ -14,54 +31,106 @@
 
   &-com {
     line-height:1.2rem;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
+    background-color: white;
+    border-radius: 5px;
+    padding: 1rem;
+    box-shadow: 0px 0px 5px 1px $colorBlack;
 
-      &-util {
-        padding: 1.5rem 0 0.5rem;
-        color: $colorOrange;
-        font-weight: bold;    
+    &-top {
+      font-size: 0.8em;
+    }
+    
+    &-util {
+      padding: 1.5rem 0 0.5rem;
+      color: $colorOrange;
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: underline;
       }
+    }
+    
+    &-serietitle {
+      font-size: 1em;
+      padding-bottom: 0.5rem;
+      font-weight: bold;               
+    }      
+    
+    &-para {
+      margin: 1rem 1rem 0;
+      font-size: 0.9em;
+      color: black;
+    }
 
-      &-date {
-        padding-bottom: 0.5rem;
-        font-weight: bold;               
-      }                  
+    &-date {
+      font-weight: bold;
+    }
   }
 
   &-form{
-    display: flex;
 
-    &-textarea{
-      display: block;
-      margin: auto;
-      border: none;
-      border-radius: 6px 0  0 6px;
-      padding: 0.5rem 0.5rem;
-      font-size: 1.2rem;
-      width: 95%;
-      outline: none;
+    &-textareabutton {
+      
+      position: relative;
+      padding-bottom: 3rem;
 
-      &:focus {
-        box-shadow: 0px 0px 5px 0px $colorOrange;
-        transition-duration: 0.3s;
+      &:focus-within {
+        background-color: white;
+        border-radius: 6px;
+      }
+
+      &-textarea {
+        font-family: 'Lato';
+        display: block;
+        border: none;
+        border-radius: 6px;
+        padding: 1rem 2rem;
+        font-size: 1.1em;
+        width: 100%;
+        height: 80px;
+        outline: none;
+        resize: none;
+        overflow: auto;
+      
+        &:hover {
+          box-shadow: 0px 0px 5px 0px $colorOrange;
+          transition-duration: 0.3s;
+        }
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+      
+      &-button {
+        position: absolute;
+        padding: 0.5rem;
+        display: inline-block;
+        color:white;
+        background-color: $colorOrange;
+        font-size: 1em;
+        font-weight: bold;
+        border:none;
+        border-radius: 6px;
+        font-family: 'Lato', sans-serif;
+        bottom: 20px;
+        right: 20px;
+
+        &-hidden {
+          visibility: hidden;
+        }
       }
     }
-
-    &-button {
-      margin: 0 auto;
-      width: 100px;
-      padding: 1rem;
-      display: block;
-      color:white;
-      background-color: $colorOrange;
-      font-size: 1em;
-      font-weight: bold;
-      border:none;
-      border-radius: 0 6px 6px 0;
-      font-family: 'Lato', sans-serif;
-    }
-  }  
+  }
+  
+  &-warning {
+    margin-top: .7rem;
+    font-size: .8em;  
+  }
 }
+
+
 
 @media screen and (min-width: 960px){ 
   
@@ -71,35 +140,62 @@
       font-size: 2rem;
     }
     &-com {
-      padding: 0 5rem;
+      margin: 2rem 5rem 2rem 5rem;
+      padding: 1rem;
+
+      &-top {
+        font-size: 1em;
+      }
 
       &-util {
         padding: 1.5rem 0 1rem; 
-        font-size: 1.2rem;      
+        font-size: 1.1em;      
       }
       
-      &-date {
+      &-serietitle {
         padding-bottom: 1rem;
-        font-size: 1rem;             
+        font-size: 1.1em;             
       }
       
       &-para {
-        font-size: 1.5rem;
+        font-size: 1.2em;
         line-height: 2rem;
       }
     }
     &-form{
-      padding: 2rem 5rem 2rem 5rem;
+      margin: 2rem 5rem 0 5rem;
+      display: flex;
+      justify-content: space-between;   
 
-      &-textarea{
-        padding: 1.5rem 1.5rem;
-        font-size: 1.5rem;
-      }
+      &-textareabutton {
+        width: 100%;
 
-      &-button {
-        padding: 2rem;
-        display: block;
+        &-textarea{
+          padding: 1.1rem;
+          font-size: 1.3em;
+          height: 60px;
+          width: 100%;
+          border-radius: 6px;
+          float: right;
+          text-align: left;
+        }
+  
+        &-button {
+          font-size: 1.2em;
+        }      
       }
-    }                  
+    }                 
+  }
+}
+
+@media screen and (min-width: 1024px){
+  .avis {
+
+    &-warning {
+      margin: .7rem 5rem;
+      width: 100%;
+      bottom: 4rem; 
+      font-size: .8em; 
+    }
   }
 }

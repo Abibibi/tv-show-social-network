@@ -2,12 +2,25 @@
 
 .home {
   padding: 1rem;
-  margin-top: 1rem;
+  margin-top: 6rem;
+  
+  &-subtitle {
+    margin: 2rem 2rem 3rem;
+    font-size: 1.8em;
+    font-weight: bold;
+  }
+
+  &-title {
+    margin-bottom: 3rem;
+    font-size: 1.4em;
+    text-align: center;
+    font-weight: bold;
+  }
 
   &-form{
 
     &-choice{
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       border: none;
       width: 100%;
       font-size: 1.2em;
@@ -15,62 +28,117 @@
       border-radius: 6px;
       font-family: monospace;
       text-align: center;
+      text-align-last: center;
+      outline: none;
+      background-color: $colorDarkGrey;
+      color: $colorLightGrey;
+      cursor: pointer;
+      font-family: 'Lato';
 
-      &:focus {
+      &:hover {
+        color: $colorOrange;
         box-shadow: 0px 0px 5px 0px $colorOrange;
-        transition-duration: 0.3s;
+        transition-duration: 0.1s;
       }
-    }
-    
-    &-textareabutton {
-      display: flex;
 
-      &-textarea{
+    }
+
+    &-textareabutton {
+      
+      position: relative;
+      padding-bottom: 5rem;
+
+      &:focus-within {
+        background-color: white;
+        border-radius: 6px;
+      }
+
+      &-textarea {
+        font-family: 'Lato';
         display: block;
         border: none;
-        border-radius: 6px 0 0 6px;
-        padding: 1rem;
-        font-size: 1.2rem;
-        width: 95%;
-        height: 85px;
+        border-radius: 6px;
+        padding: 1rem 2rem;
+        font-size: 1.1em;
+        width: 100%;
+        height: 80px;
         outline: none;
-      
-        &:focus {
-          box-shadow: 0px 0px 5px 0px $colorOrange;
-          transition-duration: 0.3s;
-        }
+        resize: none;
+        overflow: auto;
+        
       }
       
       &-button {
-        margin: 0;
-        padding: 1rem;
-        display: block;
+        position: absolute;
+        padding: 0.5rem;
+        display: inline-block;
         color:white;
         background-color: $colorOrange;
         font-size: 1em;
         font-weight: bold;
         border:none;
-        border-radius: 0 6px 6px 0;
+        border-radius: 6px;
         font-family: 'Lato', sans-serif;
+        bottom: 20px;
+        right: 20px;
+
+        &-hidden {
+          visibility: hidden;
+        }
       }
     }
   }
 
+  
+
   &-com {
     line-height:1.2rem;
-    margin-top: 2rem;
-  
+    margin-top: 2.5rem;
+    background-color: white;
+    border-radius: 5px;
+    padding: 1rem;
+    box-shadow: 0px 0px 5px 1px $colorBlack;
+
+    &-top {
+      font-size: 0.8em;
+    }
+    
     &-util {
       padding: 1.5rem 0 0.5rem;
       color: $colorOrange;
-      font-weight: bold;    
-    }
+      font-weight: bold;
 
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    
     &-serietitle {
+      font-size: 1em;
       padding-bottom: 0.5rem;
-      font-weight: bold;               
-    }                  
+      font-weight: bold;    
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }      
+    
+    &-para {
+      margin: 1rem 1rem 0;
+      font-size: 0.9em;
+      color: black;
+    }
   }
+
+  &-warning {
+    margin: .7rem 0 0;
+    bottom: 4rem;
+    font-size: .8em;  
+  }
+}
+
+option {
+  background-color: $colorDarkGrey;
 }
 
 @media screen and (min-width: 960px){ 
@@ -78,46 +146,64 @@
   .home {
 
     &-title {
-      font-size: 2rem;
+      margin-top: 5rem;
+      font-size: 2em;
     }
     &-com {
-      padding: 0 5rem;
+      margin: 2rem 5rem 2rem 5rem;
+      padding: 1rem;
+
+      &-top {
+        font-size: 1em;
+      }
 
       &-util {
         padding: 1.5rem 0 1rem; 
-        font-size: 1.2rem;      
+        font-size: 1.1em;      
       }
       
       &-serietitle {
         padding-bottom: 1rem;
-        font-size: 1rem;             
+        font-size: 1.1em;             
       }
       
       &-para {
-        font-size: 1.5rem;
+        font-size: 1.2em;
         line-height: 2rem;
       }
     }
     &-form{
-      padding: 2rem 5rem 2rem 5rem;
+      margin: 2rem 5rem 0.5rem 5rem;
+      display: flex;
+      justify-content: space-between;
 
       &-choice {
-        font-size: 1.5em;
+        font-size: 1.3em;
+        height: 60px;
+        width: 30%;
+        border-radius: 6px 0 0 6px;
       }
-
       &-textareabutton {
+        width: 70%;
 
         &-textarea{
-          padding: 1.5rem 1.5rem;
-          font-size: 1.5em;
-          height: 90px;
+          padding: 1.1rem;
+          font-size: 1.3em;
+          height: 60px;
+          width: 100%;
+          border-radius: 0 6px 6px 0;
         }
   
         &-button {
-          padding: 2rem;
-          display: block;
-        }
+          font-size: 1.2em;
+        }      
       }
-    }                  
+    } 
+    &-warning {
+      margin: 0 0 0 33%;
+      width: 60%;
+      bottom: 4rem;  
+      font-size: 1em;
+    }                 
   }
 }

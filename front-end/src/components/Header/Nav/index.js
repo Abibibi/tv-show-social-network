@@ -7,9 +7,10 @@ import { FiLogOut } from 'react-icons/fi';
 
 // == Import : local
 import './nav.scss';
+import Search from 'src/containers/Nav/Search';
 
 // == Composant
-const Nav = ({ signOut }) => {
+const Nav = ({ signOut, ownUserSlug }) => {
   const signingOut = () => {
     signOut();
   };
@@ -23,32 +24,32 @@ const Nav = ({ signOut }) => {
           <NavLink to="/genres" activeClassName="selected" className="navbar-link">
             Séries
           </NavLink>
-          <NavLink to="/friends" activeClassName="selected" className="navbar-link">
-            Amis
+          <NavLink to="/communaute" activeClassName="selected" className="navbar-link">
+            Communauté
           </NavLink>
-          <NavLink to="/profile" activeClassName="selected" className="navbar-link">
+          <NavLink to={`/profil/${ownUserSlug}`} activeClassName="selected" className="navbar-link">
             Mon profil
           </NavLink>
-          <input className="search__input" type="text" placeholder="Recherche une série..." />
-          <NavLink onClick={signingOut} to="/" activeClassName="selected" className="navbar-logout">
-            <FiLogOut />
+          <NavLink onClick={signingOut} to="/" activeClassName="selected" className="navbar-link">
+            Bye
           </NavLink>
+          <Search />
         </div>
       </nav>
       <nav className="navbar-responsive-top">
         <NavLink to="/" className="navbar-responsive-logo">
           <img className="navbar-responsive-top-logo-svg" alt="" />
         </NavLink>
-        <input className="search__input" type="text" placeholder="Recherche une série..." />
+        <Search />
       </nav>
       <nav className="navbar-responsive-bottom">
         <NavLink to="/genres" className="navbar-responsive-link" activeClassName="selected" exact>
           <FaTv className="navbar-responsive-icon" />
         </NavLink>
-        <NavLink to="/friends" activeClassName="selected" className="navbar-responsive-link" exact>
+        <NavLink to="/communaute" activeClassName="selected" className="navbar-responsive-link" exact>
           <FaUsers className="navbar-responsive-icon" />
         </NavLink>
-        <NavLink to="/profile" activeClassName="selected" className="navbar-responsive-link" exact>
+        <NavLink to={`/profil/${ownUserSlug}`} activeClassName="selected" className="navbar-responsive-link" exact>
           <FaUser className="navbar-responsive-icon" />
         </NavLink>
         <NavLink onClick={signingOut} to="/" activeClassName="" className="navbar-responsive-link" exact>
@@ -61,6 +62,7 @@ const Nav = ({ signOut }) => {
 
 Nav.propTypes = {
   signOut: PropTypes.func.isRequired,
+  ownUserSlug: PropTypes.string.isRequired,
 };
 
 // == Export

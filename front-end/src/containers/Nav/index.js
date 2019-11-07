@@ -15,6 +15,9 @@ import { doSignOut } from 'src/store/reducer/user';
  * Pas de data à transmettre ? const mapStateToProps = null;
  */
 
+const mapStateToProps = (state) => ({
+  ownUserSlug: state.user.sessionUserSlug,
+});
 
 /* === Actions ===
  * - mapDispatchToProps retroune un objet de props pour le composant de présentation
@@ -32,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 // Container
 const NavContainer = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Nav);
 

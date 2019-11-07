@@ -5,6 +5,8 @@ import {
   displaySeriesByGenre,
   GET_SERIE_DETAILS,
   displaySerieDetails,
+  FETCH_SERIES_AND_RELATED_GENRES,
+  seriesAndRelatedGenresInState,
 } from 'src/store/reducer/serie';
 
 const serieMiddleware = (store) => (next) => (action) => {
@@ -17,9 +19,9 @@ const serieMiddleware = (store) => (next) => (action) => {
 
       axios.get(`http://localhost:5000/genres/${genreSlug}`)
         .then((response) => {
-          console.log('Je récupère bien mes séries', response.data.shows);
+          console.log('Je récupère bien mes séries', response.data);
           
-          const allGenreSeries = response.data.shows;
+          const allGenreSeries = response.data;
           const displaySeriesAction = displaySeriesByGenre(allGenreSeries);
           store.dispatch(displaySeriesAction);
         })
@@ -49,8 +51,24 @@ const serieMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+    case FETCH_SERIES_AND_RELATED_GENRES: {
+      console.log('Je veux récupérer tous les slugs de série et le slug des genres associés');
+
+
+      axios.get('http://localhost:5000/shows/showsAndRelatedGenres')
+        .then((response) => {
+          console.log('Je récupère bien tous le slug de chaque série et du genre qui y est associé', response.data);
+          
+          const seriesAndRelatedGenresAction = seriesAndRelatedGenresInState(response.data);
+          store.dispatch(seriesAndRelatedGenresAction);
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+      next(action);
+      break;
+    }
     default:
-      console.log('cette action ne m\'intéresse pas je la laisse passer');
       next(action);
   }
 };

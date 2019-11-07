@@ -26,7 +26,6 @@ const genreMiddleware = (store) => (next) => (action) => {
       break;
     }
     default:
-      console.log('cette action ne m\'intéresse pas je la laisse paser');
       next(action);
   }
 };

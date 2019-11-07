@@ -1,20 +1,22 @@
-// const Sequelize = require('sequelize');
-// const db = require('../config/database');
+const Sequelize = require('sequelize');
+const db = require('../config/database');
+const User = require('./User');
 
 
-// const Relationship = db.define('relationship', {
-//     user_one_id: {
-//         type: Sequelize.NUMBER
-//     },
-//     user_two_id: {
-//         type: Sequelize.NUMBER
-//     },
-//     status: {
-//         type: Sequelize.NUMBER
-//     },
-//     action_user_id: {
-//         type: Sequelize.NUMBER
-//     }
-// })
+const Relationship = db.define('relationship', {
 
-// module.exports = Relationship;
+})
+
+// to get all info on a user followed by another user
+Relationship.belongsTo(User, {
+    as: 'followedUser',
+    through: 'relationship',
+    foreignKey: 'followedUserId'
+})
+
+// to get info on every relationship of a user (relationship id, createdAt, updateAt, user id and followed user id)
+User.hasMany(Relationship, {
+    as: 'relations'
+})
+
+module.exports = Relationship;

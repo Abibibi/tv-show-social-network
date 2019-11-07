@@ -3,6 +3,7 @@ const db = require('../config/database');
 const Review = require('./Review');
 const Chatmessage = require('./Chatmessage');
 
+
 const User = db.define('user', {
     firstname: {
         type: Sequelize.STRING
@@ -17,6 +18,15 @@ const User = db.define('user', {
         type: Sequelize.STRING
     },
     password: {
+        type: Sequelize.STRING
+    },
+    picture: {
+        type: Sequelize.TEXT
+    },
+    banner : {
+        type: Sequelize.TEXT
+    },
+    slug : {
         type: Sequelize.STRING
     }
 })
@@ -48,5 +58,6 @@ Chatmessage.belongsTo(User, {
     // which is User id
     targetKey: 'id'
 });
+
 
 module.exports = User;

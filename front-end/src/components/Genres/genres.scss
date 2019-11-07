@@ -1,23 +1,40 @@
 @import 'src/styles/vars';
 
 
+.titlegenres {
+  margin-bottom: 3rem;
+  text-align: center;
+  margin-top: 12rem;
+  font-size: 2em;
+  font-weight: bold;
+}
+
 .genres {
   display: flex;
   flex-wrap: wrap;
-  margin: 4rem;
+  margin: 0 4rem 4rem;
   justify-content: center;
+  min-height: 600px;
+
 
   &-card {
     position: relative;
     width: 400px;
+    height: 250px;
     border-radius: 5px;
     text-align: center;
     margin: 2rem;
 
     &:hover {
         box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-        transform: scale(0.95,0.95);  
+        transform: scale(1.05,1.05);  
         transition: 0.5s;       
+    }
+
+    &:hover &-title {
+      opacity: 1;
+      color: $colorOrange;
+      transition: 0.5s;
     }
 
     &-title {
@@ -26,7 +43,7 @@
       bottom: 0;
       width: 100%;
       background-color: $colorBlack;
-      font-size: 2em;
+      font-size: 1.5em;
       padding: 1rem;
       color: white;
       opacity: 0.7;
@@ -41,13 +58,27 @@
   }
 }
 @media screen and (max-width: 960px){
-      
+     
+  .titlegenres {
+    margin-bottom: 1rem;
+    text-align: center;
+    margin-top: 7rem;
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+
   .genres {
-    margin: 1rem 0.5rem;
+    margin: 2rem 0.5rem;
     &-card {
+      height: 160px;
+      width: 250px;
 
       &-title {
-        font-size: 1.5em;
+        font-size: 1.2em;
+        opacity: 1;
+        color: $colorLightGrey;
+        transition: 0.5s;
+        padding: 0.5rem;
       }
     }
   }

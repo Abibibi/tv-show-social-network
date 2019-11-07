@@ -17,6 +17,7 @@ import { messageTyped, addMessage, getMessages } from 'src/store/reducer/chat';
 const mapStateToProps = (state) => ({
   messages: state.chat.messages,
   chatMessage: state.chat.chatMessage,
+  sessionUserId: state.user.sessionUserId,
 });
 
 /* === Actions ===

@@ -1,0 +1,360 @@
+@import 'src/styles/vars';
+
+.profil {
+  margin-top: 3.5rem;
+
+  &-box {
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+
+    &-avatar {
+      background-color: darken($colorLightGrey, 10%);
+      height: 200px;
+      width: 100%;
+
+      &-banner {
+        max-width: 100%;
+        height: 400px;
+        overflow: hidden;
+      }
+      &-banner img{
+        max-width: 100%
+      }
+
+      &-picture {
+        overflow: hidden;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        margin-left: -50px;
+        top: 7.7%;
+        margin-top: -50px;
+        z-index: 0;
+      }
+      &-picture img {
+        width: 80%;
+        height: 80%;
+        border-radius: inherit;
+      }
+      &-pseudo {
+        padding-top: 1rem;
+        color: white;
+        font-size: 1.5rem;         
+        position: absolute;
+        z-index: 0;
+        top: 9%;
+      }
+      &-friend-button {
+        width: 130px;
+        color:white;
+        font-size: 1.1em;
+        font-weight: bold;
+        border:none;
+        border-radius: 6px;
+        padding: 0.3em 0;
+        font-family: 'Lato', sans-serif;
+        margin: 0 -63px;
+        top: 13.2%;
+        z-index: 0;
+        position: absolute;
+        
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s;
+
+        &:hover, &:focus, &:active {
+          -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+          -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+          transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+        }
+
+        &-add {
+          background-color: $colorOrange;
+        }
+
+        &-remove {
+          background-color: $colorBlack;
+        }
+      }
+    }    
+
+    &-avatar > h1{
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+  &-infos {
+    text-align:center;
+    background-color: darken($colorBlack, 5%);
+    position: relative;
+    z-index: 1;
+    
+      &-title {
+        font-size: 1.5rem;
+        padding:1.5rem 0;
+        font-weight: bold;
+        color: $colorOrange;
+      }
+      &-prenom, &-nom, &-age, &-mail {
+        padding: 1rem 0;
+        font-size: 1.2rem;
+        color: $colorLightGrey;
+      }
+      &-changes {
+        margin: 0 0 1rem;
+        padding: 1rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: $colorBlack;
+        background-color: white;
+
+        &:hover {
+          box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+          transform: scale(0.95,0.95);  
+          transition: 0.5s;       
+        }
+      }
+    }
+    &-skills {
+      padding: 2rem 2rem 0 2rem;
+      text-align: center;
+      background-color: white;
+      position: relative;
+      z-index: 1;
+        
+      &-addict {
+        font-size: 1.5rem;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        font-weight:bold;
+      }
+
+      &-avis {
+        font-size: 1.5rem;
+        padding-top: 2.8rem;
+        font-weight: bold;        
+
+        &-nbr {
+        font-size: 1.5rem;
+        padding: 2rem;
+        }
+      }
+    }
+
+    &-friends {
+      text-align: center;
+      background-color: darken($colorBlack, 5%);
+      position: relative;
+      z-index: 1;
+      
+      
+      &-title {
+        font-size: 1.5rem;
+        padding: 1.5rem;
+        font-weight: bold;
+        color: $colorOrange;
+      }
+
+      &-friend-list {
+        display: flex;
+        flex-wrap: wrap;
+
+        &-link {
+          width: 90px;
+          height: 90px;
+          margin-bottom: 2rem;
+
+          &:hover {
+            transform: scale(0.95,0.95);  
+            transition: 0.5s;       
+          }
+          &-name {
+            display: block;
+            padding-bottom: 1.5rem;
+            color: $colorLightGrey;
+          }
+          &-picture {
+            overflow:hidden;
+            -webkit-border-radius:50px;
+            -moz-border-radius:50px;
+            border-radius:50px;
+            margin-left: auto;
+            margin-right: auto;
+            width:90px;
+            height:90px;
+          }
+          &-picture img {
+            width: inherit;
+            height: inherit;
+            border-radius: inherit;
+            padding: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  &-reviews {
+    width: 100%;
+    padding: 2rem 1rem;
+    background-color: white;
+
+    &-review {
+      border-radius: 5px;
+      box-shadow: 0px 0px 5px 1px $colorBlack;
+      line-height:1.2rem;
+      background-color: $colorLightGrey;
+      padding: 1rem;
+      margin-bottom: 2rem;
+  
+      &-com {
+  
+        &-util {
+          font-size: 1em;
+          color: $colorOrange;
+          font-weight: bold;
+        }
+
+        &-date, &-show {
+          font-weight: bold;
+        }
+      }
+  
+      &-para {
+        text-align: left;
+        font-size: 1.1rem;
+        padding-top: 0.8rem;
+        line-height: 1.5rem;
+      }   
+    }
+  }
+}
+
+@media screen and (max-width: 355px) {
+  .profil {
+    &-box {
+      &-avatar {
+        height: 180px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 356px) {
+  .profil {
+    &-box {
+      &-avatar {
+
+        &-picture {
+          top: 8.5%;
+        }
+
+        &-pseudo {
+          z-index: 0;
+          top: 10.8%;
+        }
+
+        &-friend-button {
+          top: 15.2%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 760px) {
+  .profil {
+    &-box {
+      &-avatar {
+        height: 300px;
+
+        &-picture {
+          top: 8.5%;
+        }
+        &-pseudo {
+          z-index: 0;
+          top: 11%;
+        }
+
+        &-friend-button {
+          top: 19.2%;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+@media screen and (min-width: 960px) {
+  .profil {
+    &-box {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+
+      &-infos {
+        width: 25%;
+
+        &-changes {
+          margin-top: 2rem;
+        }
+      }
+
+      &-friends {
+        width: 25%;
+
+        &-friend-list {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+      &-avatar {
+        height: 400%;
+        padding-top: 2rem;
+
+        &-picture {
+          top: 25%;
+        }
+
+        &-picture img {
+          width: 100%;
+          height: 100%;
+        }
+
+        &-pseudo {
+          font-size: 2.6rem;
+          top: 30%;
+        }
+
+        &-friend-button {
+          top: 43.2%;
+          padding: .6em 0;
+        }
+
+      }
+      &-skills {
+        width: 50%;
+      }
+    }
+
+    &-reviews {
+      width: 50%;
+      margin: auto;
+    }
+  }
+}

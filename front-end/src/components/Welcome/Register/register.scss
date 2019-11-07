@@ -4,6 +4,11 @@
 
   text-align: center;
 
+  &-login {
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+
   &-label {
     display: block;
     width: 100%;
@@ -38,8 +43,44 @@
     border-radius: 6px;
     padding: 0.3em 1em;
     font-family: 'Lato', sans-serif;
-    margin: 3.5rem auto 0;
-  } 
+    margin: 2rem auto 0;
+  }
+  
+  &-signup-success {
+    background-color: rgb(204, 255, 204);
+    border-radius: 6px;
+    padding: 1rem;
+    font-size: 1.1em;
+    width: 200px;
+    margin: auto;
+  }
+
+  &-signup-fail {
+    background-color: rgb(255, 146, 146);
+    border-radius: 6px;
+    padding: 1rem;
+    font-size: 1.1em;
+    width: 200px;
+    margin: auto;
+  }
+
+  &-signin-success {
+    background-color: rgb(204, 255, 204);
+    border-radius: 6px;
+    padding: 1rem;
+    font-size: 1.1em;
+    width: 200px;
+    margin: auto;
+  }
+
+  &-signin-fail {
+    background-color: rgb(255, 146, 146);
+    border-radius: 6px;
+    padding: 1rem;
+    font-size: 1.1em;
+    width: 200px;
+    margin: auto;
+  }
 }
 
 .title {

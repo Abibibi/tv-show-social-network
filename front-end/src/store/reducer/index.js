@@ -8,6 +8,9 @@ import user from './user';
 import genre from './genre';
 import serie from './serie';
 import chat from './chat';
+import review from './review';
+import search from './search';
+import friend from './friend';
 
 // combineReducers nous retourne le reducer parent généré
 // on doit fournir en paramètre un objet
@@ -19,6 +22,9 @@ const reducer = combineReducers({
   genre,
   serie,
   chat,
+  review,
+  search,
+  friend,
 });
 
 // Export

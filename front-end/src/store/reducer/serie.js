@@ -1,10 +1,13 @@
 // - initialState
 const initialState = {
+  seriesOneGenre: {},
   seriesByGenre: [],
   oneSerie: {},
   directors: [],
   actors: [],
   genre: {},
+  reviews: [],
+  seriesAndRelatedGenres: [],
 };
 
 // - Actions Types
@@ -12,6 +15,9 @@ export const GET_SERIES_BY_GENRE = 'GET_SERIES_BY_GENRE';
 const DISPLAY_SERIES_BY_GENRE = 'DISPLAY_SERIES_BY_GENRE';
 export const GET_SERIE_DETAILS = 'GET_SERIE_DETAILS';
 const DISPLAY_SERIE_DETAILS = 'DISPLAY_SERIE_DETAILS';
+export const RECEIVE_REVIEW_ON_SHOW_PAGE = 'RECEIVE_REVIEW_ON_SHOW_PAGE';
+export const FETCH_SERIES_AND_RELATED_GENRES = 'FETCH_SERIES_AND_RELATED_GENRES';
+const SERIES_AND_RELATED_GENRES_IN_STATE = 'SERIES_AND_RELATED_GENRES_IN_STATE';
 
 // - Reducer
 const reducer = (state = initialState, action = {}) => {
@@ -19,7 +25,8 @@ const reducer = (state = initialState, action = {}) => {
     case DISPLAY_SERIES_BY_GENRE:
       return {
         ...state,
-        seriesByGenre: action.genreSeries,
+        seriesOneGenre: action.genre,
+        seriesByGenre: action.genre.shows,
       };
     case DISPLAY_SERIE_DETAILS:
       return {
@@ -28,6 +35,20 @@ const reducer = (state = initialState, action = {}) => {
         directors: action.serieDetails.directors,
         actors: action.serieDetails.actors,
         genre: action.serieDetails.genre,
+        reviews: action.serieDetails.reviews,
+      };
+    case RECEIVE_REVIEW_ON_SHOW_PAGE:
+      return {
+        ...state,
+        reviews: [
+          ...state.reviews,
+          action.review,
+        ],
+      };
+    case SERIES_AND_RELATED_GENRES_IN_STATE:
+      return {
+        ...state,
+        seriesAndRelatedGenres: action.seriesRelatedGenres,
       };
     default:
       return state;
@@ -39,9 +60,9 @@ export const getSeriesByGenre = () => ({
   type: GET_SERIES_BY_GENRE,
 });
 
-export const displaySeriesByGenre = (genreSeries) => ({
+export const displaySeriesByGenre = (genre) => ({
   type: DISPLAY_SERIES_BY_GENRE,
-  genreSeries,
+  genre,
 });
 
 export const getSerieDetails = () => ({
@@ -51,6 +72,20 @@ export const getSerieDetails = () => ({
 export const displaySerieDetails = (serieDetails) => ({
   type: DISPLAY_SERIE_DETAILS,
   serieDetails,
+});
+
+export const receiveReviewOnShowPage = (review) => ({
+  type: RECEIVE_REVIEW_ON_SHOW_PAGE,
+  review,
+});
+
+export const fetchSeriesAndRelatedGenres = () => ({
+  type: FETCH_SERIES_AND_RELATED_GENRES,
+});
+
+export const seriesAndRelatedGenresInState = (seriesRelatedGenres) => ({
+  type: SERIES_AND_RELATED_GENRES_IN_STATE,
+  seriesRelatedGenres,
 });
 
 // - Selectors

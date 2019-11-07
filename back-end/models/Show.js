@@ -21,6 +21,9 @@ const Show = db.define('show', {
     picture: {
         type: Sequelize.STRING
     },
+    slug: {
+        type: Sequelize.STRING
+    },
     
 });
 

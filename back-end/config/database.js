@@ -15,6 +15,13 @@ const Sequelize = require('sequelize');
 // });
 
 // quand je me connecterai à ma BDD en ligne, sur ElephantSQL :
-const sequelize = new Sequelize('postgres://ezeaoxfx:au9utTB8vKr8aiiXhqnKVvyy9M-4oSAK@salt.db.elephantsql.com:5432/ezeaoxfx', {})
+const sequelize = new Sequelize('postgres://ezeaoxfx:au9utTB8vKr8aiiXhqnKVvyy9M-4oSAK@salt.db.elephantsql.com:5432/ezeaoxfx', {
+    pool: {
+        max: 15,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    }
+})
 
 module.exports = sequelize;

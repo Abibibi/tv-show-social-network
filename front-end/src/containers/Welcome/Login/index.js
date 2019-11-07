@@ -17,6 +17,8 @@ import { changeValue, doSignIn } from 'src/store/reducer/user';
 const mapStateToProps = (state) => ({
   email: state.user.signInEmail,
   password: state.user.signInPassword,
+  signedIn: state.user.signedIn,
+  signInFail: state.user.signInFail,
 });
 
 /* === Actions ===

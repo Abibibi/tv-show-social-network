@@ -20,6 +20,8 @@ const mapStateToProps = (state) => ({
   handle: state.user.handle,
   email: state.user.signUpEmail,
   password: state.user.signUpPassword,
+  registered: state.user.registered,
+  registerFail: state.user.registerFail,
 });
 
 /* === Actions ===

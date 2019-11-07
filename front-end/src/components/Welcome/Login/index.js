@@ -11,6 +11,8 @@ const Login = ({
   password,
   modifyValue,
   logIn,
+  signedIn,
+  signInFail,
 }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -25,7 +27,7 @@ const Login = ({
   return (
     <>
       <h3 id="login" className="title">Connecte-toi</h3>
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={handleSubmit} className="form-login">
         <label className="form-label" htmlFor="login-email">
             E-mail
           <input
@@ -52,7 +54,12 @@ const Login = ({
             required
           />
         </label>
-        <button className="form-button hvr-sweep-to-left-register-login" type="submit">Je me connecte</button>
+        {console.log(signInFail)}
+        {(signInFail && !signedIn && <div className="form-signin-fail">Identifiants invalides</div>)
+        || (signedIn && !signInFail && <div className="form-signin-success">Connexion réussie</div>)}
+        <button className="form-button hvr-sweep-to-left-register-login" type="submit">
+          Je me connecte
+        </button>
       </form>
     </>
   );
@@ -63,6 +70,8 @@ Login.propTypes = {
   password: PropTypes.string,
   modifyValue: PropTypes.func.isRequired,
   logIn: PropTypes.func.isRequired,
+  signedIn: PropTypes.bool.isRequired,
+  signInFail: PropTypes.bool.isRequired,
 };
 
 Login.defaultProps = {

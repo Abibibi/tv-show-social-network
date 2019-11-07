@@ -13,22 +13,25 @@ const Genres = ({ genres, catchGenres }) => {
   }, []);
 
   return (
-    <div className="genres">
-      {genres.map((genre) => {
-        const {
-          name,
-          image,
-          id,
-          slug,
-        } = genre;
-        return (
-          <Link to={`/genres/${slug}`} className="genres-card" key={id}>
-            <img className="genres-card-image" src={image} alt={name} />
-            <span className="genres-card-title">{name}</span>
-          </Link>
-        );
-      })}
-    </div>
+    <>
+      <h1 className="titlegenres">C'est quoi ton genre ?</h1>
+      <div className="genres">
+        {genres.map((genre) => {
+          const {
+            name,
+            image,
+            id,
+            slug,
+          } = genre;
+          return (
+            <Link to={`/${slug}`} className="genres-card" key={id}>
+              <img className="genres-card-image" src={image} alt={name} />
+              <span className="genres-card-title">{name}</span>
+            </Link>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

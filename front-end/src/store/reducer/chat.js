@@ -10,7 +10,7 @@ const MESSAGE_TYPED = 'MESSAGE_TYPED';
 export const DISPLAY_MESSAGES = 'DISPLAY_MESSAGES';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const WEB_SOCKET = 'WEB_SOCKET';
-export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
+const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 
 // - Reducer
 const reducer = (state = initialState, action = {}) => {

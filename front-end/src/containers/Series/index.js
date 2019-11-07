@@ -18,6 +18,7 @@ import { getSeriesByGenre } from 'src/store/reducer/serie';
 /* Je vais chercher dans le state du reducer serie puis je prends les donnés donc serie.title */
 const mapStateToProps = (state) => ({
   series: state.serie.seriesByGenre,
+  genreSlug: state.serie.seriesOneGenre.slug,
 });
 
 

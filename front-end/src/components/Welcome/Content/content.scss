@@ -5,6 +5,8 @@
   position: relative;
   margin: 5rem auto 3rem;
   width: 80%;
+  box-shadow: 0px 0px 5px 0px $colorBlack;
+  transition-duration: 0.1s;
 
   &-text {
 
@@ -54,8 +56,17 @@
   }
 }
 
+
+.awssld__content > img, .awssld__content > video {
+  height: 79%;
+}
+
 // responsive desktop
 @media screen and (min-width: 960px) {
+
+  .awssld__content > img, .awssld__content > video {
+    height: 85%;
+  }
 
   .slider {
 

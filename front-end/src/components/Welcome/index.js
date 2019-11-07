@@ -3,6 +3,7 @@ import React from 'react';
 import PageProgress from 'react-page-progress';
 
 // == Import : local
+import './welcome.scss';
 import HeaderWelcome from 'src/components/Welcome/HeaderWelcome';
 import Content from 'src/components/Welcome/Content';
 import Login from 'src/containers/Welcome/Login';
