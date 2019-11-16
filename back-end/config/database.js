@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 
 // pour l'instant, je me connecte sur ma BDD en local
-// const sequelize =  new Sequelize('serialkiller', 'serialkiller', 'serialkiller', {
+// const sequelize =  new Sequelize('DBName', 'DBUser', 'DBpassword', {
 //   host: 'localhost',
 //   dialect: 'postgres',
 
@@ -15,7 +15,7 @@ const Sequelize = require('sequelize');
 // });
 
 // quand je me connecterai à ma BDD en ligne, sur ElephantSQL :
-const sequelize = new Sequelize('postgres://ezeaoxfx:au9utTB8vKr8aiiXhqnKVvyy9M-4oSAK@salt.db.elephantsql.com:5432/ezeaoxfx', {
+const sequelize = new Sequelize(/* 'PUT_DB_CONNEXION_URL_HERE', */ {
     pool: {
         max: 15,
         min: 0,
