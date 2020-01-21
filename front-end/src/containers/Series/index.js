@@ -34,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
     const action = getSeriesByGenre();
     dispatch(action);
   },
+
 });
 
 // Container

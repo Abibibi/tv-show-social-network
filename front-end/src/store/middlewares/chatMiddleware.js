@@ -34,8 +34,10 @@ const chatMiddleware = (store) => (next) => (action) => {
           handle,
         },
       };
+
+      socket.emit('send_message', newMessage);
       
-      axios.post('http://localhost:5000/messages/add', newMessage)
+      axios.post('http://localhost:5000/chatmessages/add', newMessage, { withCredentials: true })
         .then((response) => {
           console.log('Le message a bien été enregistré dans la BDD', response);
         })
@@ -43,13 +45,12 @@ const chatMiddleware = (store) => (next) => (action) => {
           console.log('error', error);
         });
       
-      socket.emit('send_message', newMessage);
 
       next(action);
       break;
     }
     case GET_MESSAGES: {
-      axios.get('http://localhost:5000/messages/')
+      axios.get('http://localhost:5000/chatmessages/', { withCredentials: true })
         .then((response) => {
           console.log('Je récupère l\'historique des messages du chat', response.data);
           const messageAction = displayMessages(response.data);
@@ -67,7 +68,7 @@ const chatMiddleware = (store) => (next) => (action) => {
         // console.log(message);
         store.dispatch(receiveMessage(message));
       });
-      console.log('Le message est bien revenu');
+
       break;
     }
     default:

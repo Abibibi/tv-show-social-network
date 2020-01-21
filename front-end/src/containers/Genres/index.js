@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 // == Import : local
 import Genres from 'src/components/Genres';
 
-import { fetchGenre } from 'src/store/reducer/genre';
-
 // Action Creators
+import { fetchGenre } from 'src/store/reducer/genre';
 
 /* === State (données) ===
  * - mapStateToProps retroune un objet de props pour le composant de présentation
@@ -31,6 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
     const action = fetchGenre();
     dispatch(action);
   },
+
 });
 
 // Container

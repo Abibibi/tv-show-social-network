@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 // == Import : local
 import Profile from 'src/components/Profile';
-import { getOwnProfile } from 'src/store/reducer/user';
+
 // Action Creators
+import { getOwnProfile } from 'src/store/reducer/user';
 
 /* === State (données) ===
  * - mapStateToProps retroune un objet de props pour le composant de présentation
@@ -35,6 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
     const action = getOwnProfile();
     dispatch(action);
   },
+
 });
 
 // Container

@@ -11,7 +11,7 @@ const genreMiddleware = (store) => (next) => (action) => {
 
       console.log(state.genre.genres);
 
-      axios.get('http://localhost:5000/genres/')
+      axios.get('http://localhost:5000/genres/', { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien mes genres', response.data);
           const genreAction = displayGenre(response.data);

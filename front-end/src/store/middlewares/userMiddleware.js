@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 import {
+  IS_AUTH,
+  userAlreadyAuthenticated,
   DO_SIGNUP,
   signUpSuccess,
   signUpFail,
@@ -8,12 +10,32 @@ import {
   DO_SIGNOUT,
   signInSuccess,
   signInFail,
+  signOutSuccess,
   GET_OWN_PROFILE,
   receiveOwnProfile,
 } from 'src/store/reducer/user';
 
 const userMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
+    case IS_AUTH: {
+      console.log("je veux vérifier si l'utilisateur est déjà connecté - soit, s'il a déjà une session côté back");
+
+      axios.get('http://localhost:5000/users/isAuth', { withCredentials: true })
+      .then((response) => {
+        // dans le response.data, on récupère un cookie comme le prévoit le back
+        console.log("l'utilisateur est bien déjà connecté", response.data);
+
+        const alreadyAuthenticatedAction = userAlreadyAuthenticated(response.data);
+        store.dispatch(alreadyAuthenticatedAction);
+      })
+      .catch((error) => {
+        console.log('error', error);
+
+      });
+
+      next(action);
+      break;
+    }
     case DO_SIGNUP: {
       console.log("je veux inscrire l'utilisateur dans la BDD");
 
@@ -28,7 +50,7 @@ const userMiddleware = (store) => (next) => (action) => {
 
       // le back met à ma disposition une API pour que je puisse les transmettre les informations
       // dont il a besoin pour communiquer avec la BDD
-      axios.post('http://localhost:5000/users/add', state.user)
+      axios.post('http://localhost:5000/users/add', state.user, { withCredentials: true })
         .then((response) => {
           console.log(response);
 
@@ -48,22 +70,22 @@ const userMiddleware = (store) => (next) => (action) => {
       console.log("je veux vérifier si l'utilisateur est déjà inscrit");
 
       const state = store.getState();
+      
+      const { signInEmail, signInPassword } = state.user;
 
-      console.log(state.user);
+      axios.post('http://localhost:5000/users/login', { signInEmail, signInPassword }, { withCredentials: true })
+      .then((response) => {
+        // dans le response.data, on récupère un cookie comme le prévoit le back
+        console.log("l'utilisateur s'est bien connecté", response.data);
 
-      axios.post('http://localhost:5000/users/login', state.user)
-        .then((response) => {
-          // dans le response.data, on récupère un cookie comme le prévoit le back
-          console.log("l'utilisateur s'est bien connecté", response.data);
+        const signInAction = signInSuccess(response.data);
+        store.dispatch(signInAction);
+      })
+      .catch((error) => {
+        console.log('error', error);
 
-          const signInAction = signInSuccess(response.data);
-          store.dispatch(signInAction);
-        })
-        .catch((error) => {
-          console.log('error', error);
-
-          store.dispatch(signInFail());
-        });
+        store.dispatch(signInFail());
+      });
 
       next(action);
       break;
@@ -75,9 +97,12 @@ const userMiddleware = (store) => (next) => (action) => {
 
       console.log(state.user);
 
-      axios.get('http://localhost:5000/users/logout')
+      axios.get('http://localhost:5000/users/logout/bye', { withCredentials: true })
         .then((response) => {
           console.log("l'utilisateur s'est bien déconnecté", response);
+          
+          const signOutAction = signOutSuccess();
+          store.dispatch(signOutAction); 
         })
         .catch((error) => {
           console.log('error', error);
@@ -88,12 +113,8 @@ const userMiddleware = (store) => (next) => (action) => {
     }
     case GET_OWN_PROFILE: {
       console.log('Je veux recevoir les infos de profil de la session courante');
-
-      const state = store.getState();
-
-      const userId = state.user.sessionUserId;
-
-      axios.get(`http://localhost:5000/users/${userId}`)
+      
+      axios.get(`http://localhost:5000/users/ownProfile`, { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien les infos du profil', response.data);
           

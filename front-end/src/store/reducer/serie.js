@@ -2,10 +2,15 @@
 const initialState = {
   seriesOneGenre: {},
   seriesByGenre: [],
+  // to gather info about one show (id, title, year, summary, trailer and slug)
   oneSerie: {},
+  // to gather info about directors related to one show
   directors: [],
+  // to gather info about actors related to one show
   actors: [],
+  // to gather info about the genre of one show
   genre: {},
+  // to gather info about reviews posted about one show
   reviews: [],
   seriesAndRelatedGenres: [],
 };

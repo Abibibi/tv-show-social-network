@@ -64,7 +64,7 @@ const Home = ({
         </select>
         <div className="home-form-textareabutton">
           <textarea
-            onFocus={() => setText('Tu peux poster tout ce que tu veux, du moment qu\'il ne s\'agit pas de propos discriminatoires. Le cas échéant, les commentaires seront supprimés.')}
+            onFocus={() => setText('Tu peux publier tout ce que tu veux, du moment qu\'il ne s\'agit pas de propos discriminatoires. Le cas échéant, les commentaires seront supprimés.')}
             onBlur={() => setText('')}
             onChange={handleChangeInputArea}
             className="home-form-textareabutton-textarea"
@@ -72,7 +72,7 @@ const Home = ({
             value={reviewContent}
             required
           />
-          <button type="submit" aria-label="Ok" className={visibilityButton}>Poster</button>
+          <button type="submit" aria-label="Ok" className={visibilityButton}>Publier</button>
         </div>
       </form>
       <div className="home-warning">{text}</div>
@@ -124,14 +124,14 @@ Home.propTypes = {
       /* stars: PropTypes.number.isRequired, */
       user: PropTypes.shape({
         handle: PropTypes.string.isRequired,
-        slug: PropTypes.string.isRequired,
+        /* slug: PropTypes.string.isRequired, */
       }).isRequired,
       show: PropTypes.shape({
         title: PropTypes.string.isRequired,
-        slug: PropTypes.string.isRequired,
-        genre: PropTypes.shape({
+        /* slug: PropTypes.string.isRequired, */
+        /* genre: PropTypes.shape({
           slug: PropTypes.string.isRequired,
-        }).isRequired,
+        }).isRequired, */
       }).isRequired,
     }),
   ).isRequired,

@@ -9,12 +9,16 @@ const initialState = {
   signInPassword: '',
   logged: false,
   sessionUserId: '',
+  sessionUserHandle: '',
+  sessionUserSlug: '',
   ownProfile: {},
   reviews: [],
   relationships: [],
 };
 
 // - Actions Types
+export const IS_AUTH = 'IS_AUTH';
+const USER_ALREADY_AUTHENTICATED= 'USER_ALREADY_AUTHENTICATED';
 const CHANGE_VALUE = 'CHANGE_VALUE';
 export const DO_SIGNUP = 'DO_SIGNUP';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
@@ -23,6 +27,7 @@ export const DO_SIGNIN = 'DO_SIGNIN';
 export const DO_SIGNOUT = 'DO_SIGNOUT';
 const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 const SIGNIN_FAIL = 'SIGNIN_FAIL';
+export const SIGNOUT_SUCCESS = 'SIGNOUT_SUCCESS';
 export const GET_OWN_PROFILE = 'GET_OWN_PROFILE';
 export const RECEIVE_OWN_PROFILE = 'RECEIVE_OWN_PROFILE';
 const DO_FOLLOW = 'DO_FOLLOW';
@@ -32,6 +37,14 @@ const DO_UNFOLLOW = 'DO_UNFOLLOW';
 // - Reducer
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case USER_ALREADY_AUTHENTICATED:
+      return {
+        ...state,
+        logged: true,
+        sessionUserHandle: action.userSessionData.handle,
+        sessionUserSlug: action.userSessionData.slug,
+        sessionUserId: action.userSessionData.id,
+      };
     case CHANGE_VALUE:
       return {
         ...state,
@@ -64,20 +77,15 @@ const reducer = (state = initialState, action = {}) => {
         signInEmail: '',
         signInPassword: '',
       };
-    case DO_SIGNOUT:
-      return {
-        ...state,
-        logged: false,
-      };
     case SIGNIN_SUCCESS:
       return {
         ...state,
         logged: true,
         signedIn: true,
         signInFail: false,
-        sessionUserHandle: action.sessionUserData.userHandle,
-        sessionUserSlug: action.sessionUserData.userSlug,
-        sessionUserId: action.sessionUserData.userSession.userId,
+        sessionUserHandle: action.userSessionData.handle,
+        sessionUserSlug: action.userSessionData.slug,
+        sessionUserId: action.userSessionData.id,
       };
     case SIGNIN_FAIL:
       return {
@@ -85,6 +93,15 @@ const reducer = (state = initialState, action = {}) => {
         signInFail: true,
         signedIn: false,
       };
+    case SIGNOUT_SUCCESS:
+      return {
+        ...state,
+        logged: false,
+        signedIn: false,
+        sessionUserHandle: '',
+        sessionUserSlug: '',
+        sessionUserId: '',
+      };  
     case RECEIVE_OWN_PROFILE:
       return {
         ...state,
@@ -113,6 +130,15 @@ const reducer = (state = initialState, action = {}) => {
 };
 
 // - Actions Creators
+export const isAuth = () => ({
+  type: IS_AUTH,
+});
+
+export const userAlreadyAuthenticated = (userSessionData) => ({
+  type: USER_ALREADY_AUTHENTICATED,
+  userSessionData,
+})
+
 export const changeValue = (name, value) => ({
   type: CHANGE_VALUE,
   name,
@@ -135,18 +161,21 @@ export const doSignIn = () => ({
   type: DO_SIGNIN,
 });
 
-export const doSignOut = (session) => ({
+export const doSignOut = () => ({
   type: DO_SIGNOUT,
-  session,
 });
 
-export const signInSuccess = (sessionUserData) => ({
+export const signInSuccess = (userSessionData) => ({
   type: SIGNIN_SUCCESS,
-  sessionUserData,
+  userSessionData,
 });
 
 export const signInFail = () => ({
   type: SIGNIN_FAIL,
+});
+
+export const signOutSuccess = () => ({
+  type: SIGNOUT_SUCCESS,
 });
 
 export const getOwnProfile = () => ({

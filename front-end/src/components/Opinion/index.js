@@ -41,7 +41,7 @@ const Opinion = ({
       <form onSubmit={handleSubmit} className="avis-form">
         <div className="avis-form-textareabutton">
           <textarea
-            onFocus={() => setText('Tu peux poster tout ce que tu veux, du moment qu\'il ne s\'agit pas de propos discriminatoires. Le cas échéant, les commentaires seront supprimés.')}
+            onFocus={() => setText('Tu peux publier tout ce que tu veux, du moment qu\'il ne s\'agit pas de propos discriminatoires. Le cas échéant, les commentaires seront supprimés.')}
             onBlur={() => setText('')}
             id={showId}
             onChange={handleChangeInputArea}
@@ -50,7 +50,7 @@ const Opinion = ({
             value={reviewContentShowPage}
             required
           />
-          <button type="submit" aria-label="Ok" className={visibilityButton}>Poster</button>
+          <button type="submit" aria-label="Ok" className={visibilityButton}>Publier</button>
         </div>
       </form>
       <div className="avis-warning">{text}</div>
@@ -90,7 +90,7 @@ Opinion.propTypes = {
       user: PropTypes.shape({
         /* id: PropTypes.number.isRequired, */
         handle: PropTypes.string.isRequired,
-        slug: PropTypes.string.isRequired,
+        /* slug: PropTypes.string.isRequired, */
       }).isRequired,
     }),
   ).isRequired,

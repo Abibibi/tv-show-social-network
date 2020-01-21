@@ -1,13 +1,20 @@
 // MODULES
 
+// to use environment variables
+require('dotenv').config();
+
 // express framework used in our app
 const express = require('express');
 
 // to share resources with the client
 const cors = require('cors');
 
+const redis = require('redis');
+
 // to create and destroy sessions when user sign in and signs out
 const session = require('express-session');
+
+const redisStore = require('connect-redis')(session);
 
 const Server = require('http').Server;
 
@@ -16,6 +23,42 @@ const socket = require('socket.io');
 const Review = require('./models/Review');
 
 const Chatmessage = require('./models/Chatmessage');
+
+const client = redis.createClient();
+
+
+// express is called to create our app
+const app = express();
+const server = Server(app);
+const io = socket(server);
+const port = process.env.PORT || 5000;
+
+
+// MIDDLEWARES
+app.use(cors({
+  origin: 'http://localhost:8080',
+  credentials: true
+}));
+// body-parser n'est plus nécessaire pour parser les informations en JSON,
+// on peut directement utiliser express :
+app.use(express.json());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  store: new redisStore({
+    host: process.env.REDIS_HOST,
+    port: 6379,
+    client: client,
+    ttl: 260
+  }),
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    secure: process.env.NODE_ENV === 'production'
+  }
+}));
+
 
 
 // DATABASE CONNECTION
@@ -28,26 +71,6 @@ db.authenticate()
   .then(() => console.log('Connexion à la base de données réussie'))
   .catch(err => console.log(err));
 
-// express is called to create our app
-const app = express();
-const server = Server(app);
-const io = socket(server);
-const port = process.env.PORT || 5000;
-
-
-
-// MIDDLEWARES
-
-app.use(session({
-  secret: 'serialkillerbestproject',
-  resave: false,
-  saveUninitialized: false,
-}));
-app.use(cors());
-// body-parser n'est plus nécessaire pour parser les informations en JSON,
-// on peut directement utiliser express :
-app.use(express.json());
-
 
 
 // ROUTES & API
@@ -56,8 +79,6 @@ app.use(express.json());
 const usersRouter = require('./routes/users');
 const genresRouter = require('./routes/genres');
 const showsRouter = require('./routes/shows');
-const directorsRouter = require('./routes/directors');
-const actorsRouter = require('./routes/actors');
 const reviewsRouter = require('./routes/reviews');
 const messagesRouter = require('./routes/chatmessages')
 
@@ -65,10 +86,8 @@ const messagesRouter = require('./routes/chatmessages')
 app.use('/users', usersRouter);
 app.use('/genres', genresRouter);
 app.use('/shows', showsRouter);
-app.use('/directors', directorsRouter);
-app.use('/actors', actorsRouter);
 app.use('/reviews', reviewsRouter);
-app.use('/messages', messagesRouter);
+app.use('/chatmessages', messagesRouter);
 
 
 

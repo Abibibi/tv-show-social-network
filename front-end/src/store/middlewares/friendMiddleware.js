@@ -28,7 +28,7 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       console.log(wordSearchRequest);
 
-      axios.post('http://localhost:5000/users/search', word)
+      axios.post('http://localhost:5000/users/search', word, { withCredentials: true })
         .then((response) => {
           console.log('Je recois les suggestions SerialKillers en rapport avec le mot envoyé', response.data);
 
@@ -54,7 +54,7 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       console.log(wordSearchRequest);
 
-      axios.post('http://localhost:5000/users/search', word)
+      axios.post('http://localhost:5000/users/search', word, { withCredentials: true })
         .then((response) => {
           console.log('Je recois les suggestions SerialKillers en rapport avec le mot envoyé', response.data);
           store.dispatch(receiveFriendsFiltered(response.data));
@@ -70,14 +70,13 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       const state = store.getState();
 
-      const userId = state.user.sessionUserId;
-
       const followedUserId = state.friend.clickedfollowedOrUnfollowedUser;
 
-      axios.get(`http://localhost:5000/users/${userId}/follows/${followedUserId}`)
+      axios.get(`http://localhost:5000/users/follows/${followedUserId}`, { withCredentials: true })
         .then((response) => {
           console.log('Je suis ou ne suis plus cet utilisateur', response.data);
           console.log(response);
+          
           if (response.data.followedUser) {
             const followAction = doFollow(response.data);
             store.dispatch(followAction);
@@ -98,7 +97,9 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       const friendSlug = window.location.pathname.split('/').pop();
 
-      axios.get(`http://localhost:5000/users/friend/${friendSlug}`)
+      console.log(friendSlug);
+
+      axios.get(`http://localhost:5000/users/friend/${friendSlug}`, { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien les infos du profil de cet utilisateur', response.data);
           
@@ -115,7 +116,7 @@ const searchMiddleware = (store) => (next) => (action) => {
     case GET_FRIEND_SLUGS: {
       console.log('Je veux recevoir le slug de chaque utilisateur');
 
-      axios.get('http://localhost:5000/users/allFriendSlugs')
+      axios.get('http://localhost:5000/users/allFriendSlugs', { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien le slug de chaque utilisateur', response.data);
           

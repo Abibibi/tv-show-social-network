@@ -6,9 +6,6 @@ const Review = db.define('review', {
     content: {
         type: Sequelize.STRING
     },
-    stars: {
-        type: Sequelize.NUMBER
-    },
     users_id: {
         type: Sequelize.NUMBER
     },

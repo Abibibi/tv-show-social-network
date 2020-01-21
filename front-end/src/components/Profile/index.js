@@ -27,6 +27,7 @@ const Profile = ({
   useEffect(() => {
     getMyProfile();
   }, []);
+
   
   const reviewCount = reviews.length;
 
@@ -73,7 +74,11 @@ const Profile = ({
                   slug: friendSlug,
                 },
               }) => (
-                <Link to={`/profil/${friendSlug}`} className="profil-friends-friend-list-link" key={relationshipId}>
+                <Link
+                  to={`/profil/${friendSlug}`}
+                  className="profil-friends-friend-list-link"
+                  key={relationshipId}
+                >
                   <div className="profil-box-friends-friend-list-link-picture">
                     <img src={friendPicture} alt={friendHandle} />
                   </div>

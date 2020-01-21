@@ -7,7 +7,10 @@ import PropTypes from 'prop-types';
 import './genres.scss';
 
 // == Composant
-const Genres = ({ genres, catchGenres }) => {
+const Genres = ({
+  genres,
+  catchGenres,
+}) => {
   useEffect(() => {
     catchGenres();
   }, []);

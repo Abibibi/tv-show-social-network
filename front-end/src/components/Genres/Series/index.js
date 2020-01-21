@@ -7,7 +7,11 @@ import PropTypes from 'prop-types';
 import './series.scss';
 
 // == Composant
-const Series = ({ series, catchSeriesByGenre, genreSlug }) => {
+const Series = ({
+  series,
+  catchSeriesByGenre,
+  genreSlug,
+}) => {
   useEffect(() => {
     catchSeriesByGenre();
   }, []);
@@ -27,7 +31,7 @@ const Series = ({ series, catchSeriesByGenre, genreSlug }) => {
           return (
             <Link to={`/${genreSlug}/${slug}`} className="series-card" key={id}>
               <img className="series-card-image" src={picture} alt={title} />
-              <span className="series-card-title">{title}</span>
+              <span className="series-card-title" >{title}</span>
             </Link>
           );
         })}
@@ -46,6 +50,7 @@ Series.propTypes = {
     }),
   ).isRequired,
   catchSeriesByGenre: PropTypes.func.isRequired,
+  clickedSerieSlug: PropTypes.func.isRequired
 };
 
 

@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 const Review = require('./Review');
-const Director = require('./Director');
-const Actor = require('./Actor');
 
 
 const Show = db.define('show', {

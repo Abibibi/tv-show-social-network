@@ -31,6 +31,7 @@ import SearchShows from 'src/containers/SearchShows';
 
 // == Composant
 const App = ({
+  isUserAuth,
   logged,
   searchDone,
   catchGenres,
@@ -61,33 +62,33 @@ const App = ({
       },
     }) => {
       if (window.location.pathname === `/${genreSlug}/${serieSlug}`) {
-        document.title = `Serial Killer - ${serieTitle}`;
+        document.title = `${serieTitle} - Serial Killer`;
       }
     });
     
     friendSlugs.map(({ slug, handle }) => {
       if (window.location.pathname === `/profil/${slug}`) {
-        document.title = `Serial Killer - Profil de ${handle}`;
+        document.title = `Profil de ${handle} - Serial Killer`;
       }
     });
 
     if (window.location.pathname === '/') {
-      document.title = 'Serial Killer - Bienvenue';
+      document.title = 'Bienvenue - Serial Killer';
     }
-    else if (window.location.pathname === '/home') {
-      document.title = 'Serial Killer - Accueil';
+    else if (window.location.pathname === '/avis') {
+      document.title = 'Accueil - Serial Killer';
     }
     else if (window.location.pathname === '/genres') {
-      document.title = 'Serial Killer - Tous les genres';
+      document.title = 'Tous les genres - Serial Killer';
     }
     else if (window.location.pathname === '/communaute') {
-      document.title = 'Serial Killer - Communauté';
+      document.title = 'Communauté - Serial Killer';
     }
     else if (window.location.pathname === `/profil/${ownUserSlug}`) {
-      document.title = 'Serial Killer - Mon profil';
+      document.title = 'Mon profil - Serial Killer';
     }
     else if (window.location.pathname === '/recherche-series') {
-      document.title = 'Serial Killer - Recherche d\'une série';
+      document.title = 'Recherche d\'une série - Serial Killer';
     }
   };
 
@@ -97,6 +98,7 @@ const App = ({
   });
 
   useEffect(() => {
+    isUserAuth();
     catchGenres();
     catchSeriesAndRelatedGenres();
     catchFriendSlugs();
@@ -113,13 +115,14 @@ const App = ({
           timeout={450}
         >
           <Switch location={location}>
-            {logged && <Redirect exact from="/" to="/home" />}
+            {logged && <Redirect exact from="/" to="/avis" />}
+            {!logged && <Redirect exact from="/avis" to= "/" />}
             {location.pathname !== '/search' && searchDone && <Redirect to="/search" />}
             {/* Affichage du composant welcome si pas connécté ou home si connecté */}
             <Route path="/" exact>
               {!logged && <Welcome />}
             </Route>
-            <Route path="/home" exact>
+            <Route path="/avis" exact>
               {logged && <Home />}
             </Route>
             {/* Affichage des genres au clic sur séries */}
@@ -171,6 +174,7 @@ const App = ({
 };
 
 App.propTypes = {
+  isUserAuth: PropTypes.func.isRequired,
   logged: PropTypes.bool.isRequired,
   searchDone: PropTypes.bool.isRequired,
   catchGenres: PropTypes.func.isRequired,

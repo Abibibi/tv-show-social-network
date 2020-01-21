@@ -52,7 +52,7 @@ const FriendProfile = ({
 
   const buttonText = isFriend ? 'Se désabonner' : 'S\'abonner';
 
-  const handleClick = (event) => {
+  const handleFollowClick = (event) => {
     const { id } = event.target;
     getClickedUserId(id);
     wishFollowOrUnfollow();
@@ -69,7 +69,7 @@ const FriendProfile = ({
             <img src={picture} alt="profil" />
           </div>
           <h1 className="profil-box-avatar-pseudo">{handle}</h1>
-          <button id={friendId} onClick={handleClick} className={buttonClass} type="button">{buttonText}</button>
+          <button id={friendId} onClick={handleFollowClick} className={buttonClass} type="button">{buttonText}</button>
         </div>
         <div className="profil-box-infos">
           <h1 className="profil-box-infos-title">Infos</h1>
@@ -95,7 +95,11 @@ const FriendProfile = ({
                   slug: friendSlug,
                 },
               }) => (
-                <Link to={`/profil/${friendSlug}`} className="profil-friends-friend-list-link" key={relationshipId}>
+                <Link
+                  to={`/profil/${friendSlug}`}
+                  className="profil-friends-friend-list-link"
+                  key={relationshipId}
+                >
                   <div className="profil-box-friends-friend-list-link-picture">
                     <img src={friendPicture} alt={friendHandle} />
                   </div>

@@ -17,7 +17,7 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       console.log(wordSearchRequest);
 
-      axios.post('http://localhost:5000/shows/search', word)
+      axios.post('http://localhost:5000/shows/search', word, { withCredentials: true })
         .then((response) => {
           console.log('Je recois les series en rapport avec le mot envoyé', response.data);
           store.dispatch(receiveSeriesFiltered(response.data));
@@ -41,7 +41,7 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       console.log(wordSearchRequest);
 
-      axios.post('http://localhost:5000/shows/search', word)
+      axios.post('http://localhost:5000/shows/search', word, { withCredentials: true })
         .then((response) => {
           console.log('Je recois les series en rapport avec le mot envoyé', response.data);
           store.dispatch(receiveSeriesFiltered(response.data));

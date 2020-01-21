@@ -18,12 +18,12 @@ const ChatApp = ({
   const chatZone = useRef(null);
 
   useEffect(() => {
-    chatZone.current.scrollBy(0, chatZone.current.scrollHeight);
-  });
-
-  useEffect(() => {
     fetchMessages();
   }, []);
+
+  useEffect(() => {
+    chatZone.current.scrollBy(0, chatZone.current.scrollHeight);
+  });
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -95,7 +95,7 @@ const ChatApp = ({
                 onChange={handleChange}
                 value={chatMessage}
                 className="chat-footer-form-input"
-                placeholder="Saisissez votre message..."
+                placeholder="Partage ta réaction"
               />
               <button className="chat-footer-form-submit" type="submit">
                 <MdSend />

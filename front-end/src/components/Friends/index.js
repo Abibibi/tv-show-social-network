@@ -34,7 +34,7 @@ const Friends = ({
     submitSearch();
   };
 
-  const handleClick = (event) => {
+  const handleFollowClick = (event) => {
     const { id } = event.target;
     getClickedUserId(id);
     wishFollowOrUnfollow();
@@ -65,10 +65,10 @@ const Friends = ({
             <>
               <div key={id} className="friends-cards-card">
                 <Link to={`/profil/${slug}`}>
-                  <div className="friends-cards-card-avatar"><img src={picture} alt="" /></div>
+                  <div className="friends-cards-card-avatar"><img src={picture} alt={`photo de l\'utilisateur ${handle}`} /></div>
                   <p className="friends-cards-card-handle">{handle}</p>
                 </Link>
-                <button id={id} onClick={handleClick} className={buttonClass} type="button">{buttonText}</button>
+                <button id={id} onClick={handleFollowClick} className={buttonClass} type="button">{buttonText}</button>
               </div>
             </>
           );

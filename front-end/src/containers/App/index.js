@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 // == Import : local
 import App from 'src/components/App';
 
+import { isAuth } from 'src/store/reducer/user';
+
 import { fetchGenre } from 'src/store/reducer/genre';
 
 import { fetchSeriesAndRelatedGenres } from 'src/store/reducer/serie';
@@ -36,6 +38,11 @@ const mapStateToProps = (state) => ({
  * Pas de disptach à transmettre ? const mapDispatchToProps = {};
  */
 const mapDispatchToProps = (dispatch) => ({
+  isUserAuth: () => {
+    const action = isAuth();
+    dispatch(action);
+  },
+
   catchGenres: () => {
     const action = fetchGenre();
     dispatch(action);

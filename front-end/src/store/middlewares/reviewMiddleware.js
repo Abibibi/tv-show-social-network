@@ -25,11 +25,9 @@ const reviewMiddleware = (store) => (next) => (action) => {
       const content = state.review.reviewContent || state.review.reviewContentShowPage;
 
       const showTitle = state.review.reviewShow || state.serie.oneSerie.title;
-    
-      console.log(content);
 
       // newMessage template has to be the same as the template of messages
-      // received in messages/ API for websockets purposes
+      // received in messages/ API for websocket purposes
       const newReview = {
         createdAt: new Date(),
         content,
@@ -41,12 +39,18 @@ const reviewMiddleware = (store) => (next) => (action) => {
           title: showTitle,
         },
       };
+
+      // someone posted a review and it needs to be dealt with via WebSocket, 
+      // under the conditions specified to client when they get connected via WEBSOCKET 
+      // (conditions are in REVIEW_WEB_SOCKET case below)
+      socket.emit('post_review', newReview);
       
-      axios.post('http://localhost:5000/reviews/add', newReview)
+      // someone posted a review and it needs to be added in DB
+      axios.post('http://localhost:5000/reviews/add', newReview, { withCredentials: true })
         .then((response) => {
           console.log('L\'avis a bien été enregistré dans la BDD', response.data);
-          socket.emit('post_review', newReview);
-          const reviewShowPageAction = receiveReviewOnShowPage(response.data);
+          // action adds new review in reviews state of the show page
+          const reviewShowPageAction = receiveReviewOnShowPage(newReview);
           store.dispatch(reviewShowPageAction);
         })
         .catch((error) => {
@@ -55,11 +59,16 @@ const reviewMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+    // Conditions when client gets connected via WebSocket 
+    // (at the creation of the store, thus at the beginning of the application)
     case REVIEW_WEB_SOCKET: {
       socket = window.io('http://localhost:5000');
       
+      // if new review is posted via WebSocket,
       socket.on('post_review', (review) => {
+        // new review needs to be added into newsfeed reviews state
         store.dispatch(receiveReview(review));
+        // furthermore, server-side, it is planned that the review is sent to all connected clients
       });
       break;
     }

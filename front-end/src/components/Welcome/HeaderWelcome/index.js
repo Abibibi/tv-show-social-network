@@ -1,7 +1,7 @@
 // == Import : npm
 import React from 'react';
-import logo from 'src/styles/assets/images/logo.png';
-import bannerPicture from 'src/styles/assets/images/banner-picture.jpg';
+import logo from 'src/styles/assets/images/serialkiller-logo.png';
+import welcomePicture from 'src/styles/assets/images/welcome-picture.jpg';
 
 // == Import : local
 import './header.scss';
@@ -10,11 +10,11 @@ import './header.scss';
 const HeaderWelcome = () => (
   <div className="headerwelcome">
     <div className="headerwelcome-logo">
-      <img className="headerwelcome-logo-img" src={logo} alt="logo" />
+      <img className="headerwelcome-logo-img" src={logo} alt="Logo Serial Killer" />
     </div>
     <div className="headerwelcome-bottom">
       <div className="headerwelcome-bottom-picture">
-        <img className="headerwelcome-bottom-picture-img" src={bannerPicture} alt="banner" />
+        <img className="headerwelcome-bottom-picture-img" src={welcomePicture} alt="Une femme et un homme bouche bée face à un ordinateur portable" />
       </div>
       <div className="headerwelcome-bottom-text">
         <div className="headerwelcome-bottom-text-desc">

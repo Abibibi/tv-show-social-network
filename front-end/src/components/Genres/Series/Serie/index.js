@@ -28,7 +28,16 @@ const Serie = ({
     <>
       <div className="serie">
         <div className="serie-top">
-          <iframe className="serie-top-trailer" title="Titre" width="560" height="315" src={trailer} frameBorder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+          <iframe
+            className="serie-top-trailer"
+            title="Titre"
+            width="560"
+            height="315"
+            src={trailer}
+            frameBorder="0"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            />
           <div className="serie-top-infos">
             <p className="serie-top-infos-titre">{title}</p>
             <p className="serie-top-infos-genre">{genre}</p>
@@ -53,7 +62,7 @@ Serie.propTypes = {
     trailer: PropTypes.string.isRequired,
     year: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
+    /* picture: PropTypes.string.isRequired, */
   }).isRequired,
   directors: PropTypes.arrayOf(PropTypes.string).isRequired,
   actors: PropTypes.arrayOf(PropTypes.string).isRequired,
