@@ -20,7 +20,7 @@ const userMiddleware = (store) => (next) => (action) => {
     case IS_AUTH: {
       console.log("je veux vérifier si l'utilisateur est déjà connecté - soit, s'il a déjà une session côté back");
 
-      axios.get('http://localhost:5000/users/isAuth', { withCredentials: true })
+      axios.get('https://tv-show-social-network.herokuapp.com/users/isAuth', { withCredentials: true })
       .then((response) => {
         // dans le response.data, on récupère un cookie comme le prévoit le back
         console.log("l'utilisateur est bien déjà connecté", response.data);
@@ -50,7 +50,7 @@ const userMiddleware = (store) => (next) => (action) => {
 
       // le back met à ma disposition une API pour que je puisse les transmettre les informations
       // dont il a besoin pour communiquer avec la BDD
-      axios.post('http://localhost:5000/users/add', state.user, { withCredentials: true })
+      axios.post('https://tv-show-social-network.herokuapp.com/users/add', state.user, { withCredentials: true })
         .then((response) => {
           console.log(response);
 
@@ -73,7 +73,7 @@ const userMiddleware = (store) => (next) => (action) => {
       
       const { signInEmail, signInPassword } = state.user;
 
-      axios.post('http://localhost:5000/users/login', { signInEmail, signInPassword }, { withCredentials: true })
+      axios.post('https://tv-show-social-network.herokuapp.com/users/login', { signInEmail, signInPassword }, { withCredentials: true })
       .then((response) => {
         // dans le response.data, on récupère un cookie comme le prévoit le back
         console.log("l'utilisateur s'est bien connecté", response.data);
@@ -97,7 +97,7 @@ const userMiddleware = (store) => (next) => (action) => {
 
       console.log(state.user);
 
-      axios.get('http://localhost:5000/users/logout/bye', { withCredentials: true })
+      axios.get('https://tv-show-social-network.herokuapp.com/users/logout/bye', { withCredentials: true })
         .then((response) => {
           console.log("l'utilisateur s'est bien déconnecté", response);
           
@@ -114,7 +114,7 @@ const userMiddleware = (store) => (next) => (action) => {
     case GET_OWN_PROFILE: {
       console.log('Je veux recevoir les infos de profil de la session courante');
       
-      axios.get(`http://localhost:5000/users/ownProfile`, { withCredentials: true })
+      axios.get(`https://tv-show-social-network.herokuapp.com/users/ownProfile`, { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien les infos du profil', response.data);
           

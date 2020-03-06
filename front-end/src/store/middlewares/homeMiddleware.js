@@ -12,7 +12,7 @@ const homeMiddleware = (store) => (next) => (action) => {
     case GET_HOME_REVIEWS: {
       console.log('Sur la page d\'accueil, je veux voir les avis postés sur chaque série');
 
-      axios.get('http://localhost:5000/reviews/', { withCredentials: true })
+      axios.get('https://tv-show-social-network.herokuapp.com/reviews/', { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien les avis sur chaque série', response.data);
           
@@ -29,7 +29,7 @@ const homeMiddleware = (store) => (next) => (action) => {
     case GET_HOME_SHOWS: {
       console.log('Sur la page d\'accueil, je veux pouvoir sélectionner une série parmi toutes les séries');
 
-      axios.get('http://localhost:5000/shows/', { withCredentials: true })
+      axios.get('https://tv-show-social-network.herokuapp.com/shows/', { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien toutes les séries', response.data);
           

@@ -2,8 +2,8 @@
 const Sequelize = require('sequelize');
 
 // pour l'instant, je me connecte sur ma BDD en local
-const sequelize =  new Sequelize(process.env.LOCAL_DATABASE, process.env.LOCAL_DB_USERNAME, process.env.LOCAL_DB_PASSWORD, {
-  host: process.env.LOCAL_DB_HOST,
+/* const sequelize =  new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
   dialect: 'postgres',
 
   pool: {
@@ -12,16 +12,14 @@ const sequelize =  new Sequelize(process.env.LOCAL_DATABASE, process.env.LOCAL_D
     acquire: 30000,
     idle: 10000
   },
-});
-
-// quand je me connecterai à ma BDD en ligne, sur ElephantSQL :
-/* const sequelize = new Sequelize(`postgres://${process.env.REMOTE_DB_USERNAME}:${process.env.REMOTE_DB_PASSWORD}@${process.env.REMOTE_DB_HOST}/${process.env.REMOTE_DATABASE}`, {
-    pool: {
-        max: 15,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    }
 }); */
+
+// quand je me connecterai à ma BDD en ligne (hébergée avec Heroku) :
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: true
+  }
+});
 
 module.exports = sequelize;

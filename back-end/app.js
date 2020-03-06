@@ -24,19 +24,19 @@ const Review = require('./models/Review');
 
 const Chatmessage = require('./models/Chatmessage');
 
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_URL);
 
 
 // express is called to create our app
 const app = express();
 const server = Server(app);
-const io = socket(server);
+const io = socket(server, { log: false, origins: '*:*' });
 const port = process.env.PORT || 5000;
 
 
 // MIDDLEWARES
 app.use(cors({
-  origin: 'http://localhost:8080',
+  origin: process.env.CLIENT,
   credentials: true
 }));
 // body-parser n'est plus nécessaire pour parser les informations en JSON,
@@ -46,10 +46,7 @@ app.use(express.json());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   store: new redisStore({
-    host: process.env.REDIS_HOST,
-    port: 6379,
-    client: client,
-    ttl: 260
+    client: client
   }),
   resave: false,
   saveUninitialized: false,
@@ -58,8 +55,6 @@ app.use(session({
     secure: process.env.NODE_ENV === 'production'
   }
 }));
-
-
 
 // DATABASE CONNECTION
 

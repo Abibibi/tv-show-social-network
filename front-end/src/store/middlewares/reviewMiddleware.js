@@ -1,4 +1,5 @@
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import {
   POST_REVIEW,
@@ -8,7 +9,7 @@ import {
 
 import { receiveReviewOnShowPage } from 'src/store/reducer/serie';
 
-let socket;
+var socket = io.connect('https://tv-show-social-network.herokuapp.com');
 
 
 const reviewMiddleware = (store) => (next) => (action) => {
@@ -46,7 +47,7 @@ const reviewMiddleware = (store) => (next) => (action) => {
       socket.emit('post_review', newReview);
       
       // someone posted a review and it needs to be added in DB
-      axios.post('http://localhost:5000/reviews/add', newReview, { withCredentials: true })
+      axios.post('https://tv-show-social-network.herokuapp.com/reviews/add', newReview, { withCredentials: true })
         .then((response) => {
           console.log('L\'avis a bien été enregistré dans la BDD', response.data);
           // action adds new review in reviews state of the show page
@@ -59,11 +60,9 @@ const reviewMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
-    // Conditions when client gets connected via WebSocket 
+    // Conditions when client gets connected via WebSocket
     // (at the creation of the store, thus at the beginning of the application)
-    case REVIEW_WEB_SOCKET: {
-      socket = window.io('http://localhost:5000');
-      
+    case REVIEW_WEB_SOCKET: {     
       // if new review is posted via WebSocket,
       socket.on('post_review', (review) => {
         // new review needs to be added into newsfeed reviews state

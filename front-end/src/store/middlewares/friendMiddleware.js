@@ -28,7 +28,7 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       console.log(wordSearchRequest);
 
-      axios.post('http://localhost:5000/users/search', word, { withCredentials: true })
+      axios.post('https://tv-show-social-network.herokuapp.com/users/search', word, { withCredentials: true })
         .then((response) => {
           console.log('Je recois les suggestions SerialKillers en rapport avec le mot envoyé', response.data);
 
@@ -54,7 +54,7 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       console.log(wordSearchRequest);
 
-      axios.post('http://localhost:5000/users/search', word, { withCredentials: true })
+      axios.post('https://tv-show-social-network.herokuapp.com/users/search', word, { withCredentials: true })
         .then((response) => {
           console.log('Je recois les suggestions SerialKillers en rapport avec le mot envoyé', response.data);
           store.dispatch(receiveFriendsFiltered(response.data));
@@ -72,7 +72,7 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       const followedUserId = state.friend.clickedfollowedOrUnfollowedUser;
 
-      axios.get(`http://localhost:5000/users/follows/${followedUserId}`, { withCredentials: true })
+      axios.get(`https://tv-show-social-network.herokuapp.com/users/follows/${followedUserId}`, { withCredentials: true })
         .then((response) => {
           console.log('Je suis ou ne suis plus cet utilisateur', response.data);
           console.log(response);
@@ -99,7 +99,7 @@ const searchMiddleware = (store) => (next) => (action) => {
 
       console.log(friendSlug);
 
-      axios.get(`http://localhost:5000/users/friend/${friendSlug}`, { withCredentials: true })
+      axios.get(`https://tv-show-social-network.herokuapp.com/users/friend/${friendSlug}`, { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien les infos du profil de cet utilisateur', response.data);
           
@@ -116,7 +116,7 @@ const searchMiddleware = (store) => (next) => (action) => {
     case GET_FRIEND_SLUGS: {
       console.log('Je veux recevoir le slug de chaque utilisateur');
 
-      axios.get('http://localhost:5000/users/allFriendSlugs', { withCredentials: true })
+      axios.get('https://tv-show-social-network.herokuapp.com/users/allFriendSlugs', { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien le slug de chaque utilisateur', response.data);
           

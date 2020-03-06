@@ -16,7 +16,7 @@ const serieMiddleware = (store) => (next) => (action) => {
 
       const genreSlug = window.location.pathname.split('/').pop();
 
-      axios.get(`http://localhost:5000/genres/${genreSlug}`, { withCredentials: true })
+      axios.get(`https://tv-show-social-network.herokuapp.com/genres/${genreSlug}`, { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien mes séries', response.data);
           
@@ -35,7 +35,7 @@ const serieMiddleware = (store) => (next) => (action) => {
       
       const serieSlug = window.location.pathname.split('/').pop();
 
-      axios.get(`http://localhost:5000/shows/${serieSlug}`, { withCredentials: true })
+      axios.get(`https://tv-show-social-network.herokuapp.com/shows/${serieSlug}`, { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien le détail de ma série', response.data);
           
@@ -53,7 +53,7 @@ const serieMiddleware = (store) => (next) => (action) => {
       console.log('Je veux récupérer tous les slugs de série et le slug des genres associés');
 
 
-      axios.get('http://localhost:5000/shows/showsAndRelatedGenres', { withCredentials: true })
+      axios.get('https://tv-show-social-network.herokuapp.com/shows/showsAndRelatedGenres', { withCredentials: true })
         .then((response) => {
           console.log('Je récupère bien tous le slug de chaque série et du genre qui y est associé', response.data);
           

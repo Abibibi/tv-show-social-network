@@ -1,4 +1,5 @@
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import {
   WEB_SOCKET,
@@ -8,7 +9,9 @@ import {
   receiveMessage,
 } from 'src/store/reducer/chat';
 
-let socket;
+
+var socket = io.connect('https://tv-show-social-network.herokuapp.com');
+
 
 const chatMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -37,7 +40,7 @@ const chatMiddleware = (store) => (next) => (action) => {
 
       socket.emit('send_message', newMessage);
       
-      axios.post('http://localhost:5000/chatmessages/add', newMessage, { withCredentials: true })
+      axios.post('https://tv-show-social-network.herokuapp.com/chatmessages/add', newMessage, { withCredentials: true })
         .then((response) => {
           console.log('Le message a bien été enregistré dans la BDD', response);
         })
@@ -50,7 +53,7 @@ const chatMiddleware = (store) => (next) => (action) => {
       break;
     }
     case GET_MESSAGES: {
-      axios.get('http://localhost:5000/chatmessages/', { withCredentials: true })
+      axios.get('https://tv-show-social-network.herokuapp.com/chatmessages/', { withCredentials: true })
         .then((response) => {
           console.log('Je récupère l\'historique des messages du chat', response.data);
           const messageAction = displayMessages(response.data);
@@ -63,7 +66,6 @@ const chatMiddleware = (store) => (next) => (action) => {
       break;
     }
     case WEB_SOCKET: {
-      socket = window.io('http://localhost:5000');
       socket.on('send_message', (message) => {
         // console.log(message);
         store.dispatch(receiveMessage(message));

@@ -1,21 +1,36 @@
-# SerialKiller
+Serial Killer
+====================
 
-La communauté réservée aux dévoreurs de séries
+Purpose
+--------------------
 
-Après avoir cloné le repo :
+Serial Killer is both a TV show information database and a social network where you can review shows, chat with other members and subscribe to them.
 
-- Faire un yarn à la racine pour utiliser ESLint
+Tools used
+--------------------
 
-- Pour récupérer les dépendances côté front :
-  -> se positionner dans le dossier front-end : cd /front-end
-  -> exécuter yarn
+- Backend: Node.js, Express.js, Sequelize, WebSocket, Redis
+- DB: PostgreSQL
+- Frontend: React, Redux, WebSocket
+  
+Language
+--------------------
 
-- Pour lancer le serveur de développement côté front
-  -> dans le dossier front-end, exécuter yarn start
+French
 
-- Pour récupérer les dépendances côté back :
-  -> se positionner dans le dossier backend : cd /back-end
-  -> exécuter yarn
+Team
+--------------------
 
-- Pour lancer le serveur de développement côté back
-  -> dans le dossier back-end, exécuter yarn dev
+4 developers
+
+Demo
+--------------------
+
+http://bit.ly/TV-show-social-network
+
+Website
+--------------------
+
+https://serialkiller.abebangwe.com
+
+Backend deployed on Heroku, frontend deployed on Netlify.
